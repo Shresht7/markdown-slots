@@ -44,7 +44,7 @@ jobs:
         uses: Shresht7/markdown-slots@main
         with:
           slots: |
-            description: ${{ steps.actions-metadata.outputs.description }}
+            description: ${{ steps.action-metadata.outputs.description }}
             inputs: ${{ steps.action-metadata.outputs.inputs-md-table }}
 
       # Push Changes 🌎
