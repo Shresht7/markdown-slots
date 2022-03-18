@@ -1,5 +1,6 @@
 //  Library
 import * as core from '@actions/core'
+import action from './action'
 
 //  ====
 //  MAIN
@@ -8,7 +9,7 @@ import * as core from '@actions/core'
 /** GitHub Action Main Entrypoint */
 async function run() {
     try {
-        // await action()
+        await action()
     } catch (err) {
         const error = err as Error
         core.setFailed(error)
