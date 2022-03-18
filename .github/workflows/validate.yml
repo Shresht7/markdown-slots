@@ -1,0 +1,40 @@
+# ========
+# VALIDATE
+# ========
+
+name: Validate
+
+# Activation Events
+# =================
+
+on: # Validate on any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - main
+      - "releases/*"
+  workflow_dispatch:
+
+# Jobs
+# ====
+
+jobs:
+  # Check the build/ci process works properly
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          npm install
+          npm run build
+
+  # make sure the action works on a clean machine without building
+  test-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          dry-run: true
+          slots: |
+            inputs: Hello World

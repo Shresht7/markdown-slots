@@ -1,0 +1,52 @@
+# ==============
+# MARKDOWN SLOTS
+# ==============
+
+name: markdown-slots
+author: Shresht7
+description: A GitHub Action to dynamically place content in markdown slots.
+
+runs:
+  using: node16
+  main: dist/index.js
+
+branding:
+  icon: align-left
+  color: white
+
+# Inputs
+# ======
+
+inputs:
+  # File Paths
+  # ==========
+
+  src:
+    description: Path to the source file with markdown-slots
+    default: ./README.md
+    required: false
+
+  dest:
+    description: Desired output path for the generated content
+    default: ./README.md
+    required: false
+
+  # Slots
+  # =====
+
+  slots:
+    description: YAML string mapping slot-names to content
+    required: true
+
+  remove-slots:
+    description: Boolean to determine if this action should remove slot tags upon replacement
+    default: "false"
+    required: false
+
+  # Miscellaneous
+  # =============
+
+  dry-run:
+    description: Boolean to determine if this is a dry-run
+    default: "false"
+    required: false

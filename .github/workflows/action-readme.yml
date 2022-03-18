@@ -1,0 +1,62 @@
+# =============
+# ACTION README
+# =============
+
+name: Action-Readme
+
+# Activation Events
+# =================
+
+on:
+  # Manual workflow dispatch
+  workflow_dispatch:
+
+# Jobs
+# ====
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      # Actions Checkout ✅
+      # ===================
+
+      - name: checkout
+        uses: actions/checkout@v3
+
+      # Generate Inputs Markdown Table 📜
+      # =================================
+
+      - name: action-markdown
+        id: action-md
+        uses: Shresht7/action-markdown@main
+
+      # Markdown Slots 📋
+      # =================
+
+      - name: markdown-slots
+        id: markdown-slots
+        uses: Shresht7/markdown-slots@main
+        with:
+          slots: |
+            inputs: ${{ steps.action-md.outputs.inputs-md-table }}
+
+      # Push Changes 🌎
+      # ===============
+      - name: check for changes
+        id: git-diff
+        run: |
+          if git diff --exit-code; then
+            echo "::set-output name=changes_exist::false"
+          else
+            echo "::set-output name=changes_exist::true"
+          fi
+
+      - name: push
+        if: ${{ steps.git-diff.outputs.changes_exist == 'true' }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m 'Update README.md'
+          git push
