@@ -8,6 +8,11 @@ name: Action-Readme
 # =================
 
 on:
+  # When the action.yml file changes
+  push:
+    paths:
+      - action.yml
+
   # Manual workflow dispatch
   workflow_dispatch:
 
@@ -24,12 +29,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      # Generate Inputs Markdown Table 📜
-      # =================================
+      # Generate Action Metadata 📜
+      # ===========================
 
-      - name: action-markdown
-        id: action-md
-        uses: Shresht7/action-markdown@main
+      - name: action-metadata
+        id: action-metadata
+        uses: Shresht7/action-metadata@main
 
       # Markdown Slots 📋
       # =================
@@ -39,7 +44,8 @@ jobs:
         uses: Shresht7/markdown-slots@main
         with:
           slots: |
-            inputs: ${{ steps.action-md.outputs.inputs-md-table }}
+            description: ${{ steps.actions-metadata.outputs.description }}
+            inputs: ${{ steps.action-metadata.outputs.inputs-md-table }}
 
       # Push Changes 🌎
       # ===============
@@ -58,5 +64,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
-          git commit -m 'Update README.md'
+          git commit -m 'Update README.md 📄'
           git push
