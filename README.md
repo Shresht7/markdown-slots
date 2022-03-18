@@ -3,7 +3,7 @@
 
 <!-- slot: description -->
 
-null
+A GitHub Action to dynamically place content in markdown slots.
 
 <!-- /slot -->
 
