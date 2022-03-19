@@ -112,12 +112,12 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 
 ### List of all inputs:
 
-<!-- slot: inputs -->
+<!-- slot: inputs  -->
 | Input          | Description                                                                  |       Default |   Required   |
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :----------: |
 | `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |              |
 | `dest`         | Desired output path for the generated content                                | `./README.md` |              |
-| `slots`        | YAML string array mapping slot-names to content                              |   `undefined` | **required** |
+| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` | **required** |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |              |
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |              |
 <!-- /slot -->
@@ -130,7 +130,8 @@ The action outputs the generated contents as `contents`. You can access this in 
 
 ### List of all outputs:
 
-<!-- slot: outputs -->
+<!-- slot: outputs  -->
+
 <!-- /slot -->
 
 ## Examples
