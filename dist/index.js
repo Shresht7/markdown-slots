@@ -5723,9 +5723,18 @@ function action() {
             if (!regex.test(contents)) {
                 break;
             } //  Break if no match is found
+            //  Get props
+            const props = (0, helpers_1.getProps)(content, regex);
+            //  Attach prefix
+            if (props.prefix) {
+                contents = props.prefix + contents;
+            }
             //  Substitute content
             core.info(`\t - ${slot}`);
             contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, content, config_1.removeSlots));
+            if (props.suffix) {
+                contents = contents + props.suffix;
+            }
         }
         core.endGroup();
         //  Log the generated contents
@@ -5828,6 +5837,8 @@ function createSlotRegex(slot) {
         '\\s*',
         slot,
         '\\s*',
+        '(.*?)',
+        '\\s*',
         '-->',
         '\\s*',
         '([\\s\\S.]*?)',
@@ -5840,6 +5851,30 @@ function createSlotRegex(slot) {
     ].join(''), 'gim');
 }
 exports.createSlotRegex = createSlotRegex;
+
+
+/***/ }),
+
+/***/ 3448:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getProps = void 0;
+function getProps(content, regex) {
+    var _a, _b;
+    const props = {};
+    const propsString = (_a = content.match(regex)) === null || _a === void 0 ? void 0 : _a.at(1);
+    const matches = ((_b = propsString === null || propsString === void 0 ? void 0 : propsString.match(/(\w+):?\s*([\w\d]+)?/gi)) === null || _b === void 0 ? void 0 : _b.shift()) || [];
+    for (let i = 0; i < matches.length; i = i + 2) {
+        const key = matches[i];
+        const value = (matches === null || matches === void 0 ? void 0 : matches[i + 1]) || true;
+        props[key] = value;
+    }
+    return props;
+}
+exports.getProps = getProps;
 
 
 /***/ }),
@@ -5870,6 +5905,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 __exportStar(__nccwpck_require__(6697), exports);
 __exportStar(__nccwpck_require__(1128), exports);
 __exportStar(__nccwpck_require__(5953), exports);
+__exportStar(__nccwpck_require__(3448), exports);
 
 
 /***/ }),
