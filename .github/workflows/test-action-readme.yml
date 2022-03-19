@@ -1,18 +1,13 @@
-# =============
-# ACTION README
-# =============
+# ==================
+# TEST ACTION README
+# ==================
 
-name: Action-Readme
+name: Test-Action-Readme
 
 # Activation Events
 # =================
 
 on:
-  # When the action.yml file changes
-  push:
-    paths:
-      - action.yml
-
   # Manual workflow dispatch
   workflow_dispatch:
 
@@ -41,8 +36,9 @@ jobs:
 
       - name: markdown-slots
         id: markdown-slots
-        uses: Shresht7/markdown-slots@main
+        uses: ./
         with:
+          dry-run: true
           slots: |
             description: ${{ steps.action-metadata.outputs.description }}
             inputs: ${{ steps.action-metadata.outputs.inputs-md-table }}
