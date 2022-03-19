@@ -135,7 +135,9 @@ e.g. `${{ steps.markdown-slots.outputs.contents }}`
 ### List of all outputs:
 
 <!-- slot: outputs  -->
-
+| Output     | Description                |
+| :--------- | :------------------------- |
+| `contents` | Generated markdown content |
 <!-- /slot -->
 
 ## Examples
