@@ -11,7 +11,7 @@ import {
 } from './config'
 
 //  Helpers
-import { createSlotRegex, readFile } from './helpers'
+import { createSlotRegex, placeSlotContent, readFile } from './helpers'
 
 //  ======
 //  ACTION
@@ -35,9 +35,7 @@ async function action() {
         core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,
-            removeSlots
-                ? content
-                : `<!-- slot: ${slot} -->\n\n${content}\n\n<!-- /slot -->`
+            placeSlotContent(slot, content, removeSlots)
         )
 
     }
