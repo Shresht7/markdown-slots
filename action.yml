@@ -22,7 +22,7 @@ inputs:
   # ==========
 
   src:
-    description: Path to the source file with markdown-slots
+    description: Path to the source file with markdown-slots (can be a URL)
     default: ./README.md
     required: false
 

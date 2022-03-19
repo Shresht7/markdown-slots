@@ -10,6 +10,9 @@ import {
     isDryRun
 } from './config'
 
+//  Helpers
+import { readFile } from './helpers'
+
 //  ======
 //  ACTION
 //  ======
@@ -17,7 +20,7 @@ import {
 async function action() {
 
     //  Read file-contents with markdown-slots
-    let contents = await fs.promises.readFile(srcPath, { encoding: 'utf-8' })
+    let contents = await readFile(srcPath)
 
     //  Place content in markdown-slots
     core.startGroup('Placing contents in slots')
