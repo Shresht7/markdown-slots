@@ -10,6 +10,8 @@ name: Action-Readme
 on:
   # When the action.yml file changes
   push:
+    branches:
+      - main
     paths:
       - action.yml
 
