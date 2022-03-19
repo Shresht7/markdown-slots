@@ -10,6 +10,10 @@ import { inputs } from './metadata'
 
 const workspace = process.env.GITHUB_WORKSPACE || ''
 
+if (!workspace) {
+    throw new Error('Invalid GITHUB_WORKSPACE. You need to checkout this repository using the actions/checkout@v3 github-action for the GITHUB_WORKSPACE environment variable')
+}
+
 // FILE PATHS
 // ==========
 
