@@ -8,3 +8,10 @@ export interface Props {
     prefix?: string,
     suffix?: string
 }
+
+/** Slot interface */
+export interface Slot {
+    slot: string,
+    content: string,
+    props: Props
+}

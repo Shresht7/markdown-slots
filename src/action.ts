@@ -31,7 +31,7 @@ async function action() {
 
     //  Place content in markdown-slots
     core.startGroup('Placing contents in slots')
-    for (const [slot, content] of Object.entries(slots)) {
+    for (let { slot, content, props } of slots) {
 
         //  Create regex for the markdown slot
         const regex = createSlotRegex(slot)
@@ -42,7 +42,7 @@ async function action() {
 
         //  Get props
         const propsString = match?.at(1) || ''
-        const props = getProps(propsString)
+        props = { ...props, ...getProps(propsString) }
 
         //  Place content
         core.info(`\t - ${slot}`)

@@ -2,6 +2,7 @@
 import * as core from '@actions/core'
 import * as jsYaml from 'js-yaml'
 import { inputs } from './metadata'
+import type { Slot } from './types'
 
 //  ======
 //  CONFIG
@@ -28,7 +29,7 @@ export const dest = core.getInput(inputs.dest, { required: true })
 // =====
 
 /** YAML configuration mapping slotNames and slotContents */
-export const slots = jsYaml.load(core.getMultilineInput(inputs.slots).join('\n')) as Record<string, string>
+export const slots = jsYaml.load(core.getMultilineInput(inputs.slots).join('\n')) as Slot[]
 
 /** Boolean to determine if this action should remove slot tags upon replacement */
 export const removeSlots = core.getBooleanInput(inputs.removeSlots)

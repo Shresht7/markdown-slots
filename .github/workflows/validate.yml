@@ -37,4 +37,5 @@ jobs:
         with:
           dry-run: true
           slots: |
-            inputs: Hello World
+            - slot: inputs
+              content: Hello World
