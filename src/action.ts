@@ -41,7 +41,7 @@ async function action() {
         const match = content.match(regex)
 
         console.log(match)
-        if (!match) { break }    //  Break if no match is found
+        if (!match) { continue }    //  Continue if no match is found
 
         //  Get props
         const propsString = match?.at(1) || ''

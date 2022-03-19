@@ -5725,8 +5725,8 @@ function action() {
             const match = content.match(regex);
             console.log(match);
             if (!match) {
-                break;
-            } //  Break if no match is found
+                continue;
+            } //  Continue if no match is found
             //  Get props
             const propsString = (match === null || match === void 0 ? void 0 : match.at(1)) || '';
             const props = (0, helpers_1.getProps)(propsString);
