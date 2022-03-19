@@ -5867,6 +5867,7 @@ exports.getProps = void 0;
 function getProps(content, regex) {
     var _a, _b;
     const props = {};
+    console.log(content.match(regex));
     const propsString = ((_a = content.match(regex)) === null || _a === void 0 ? void 0 : _a.at(1)) || '';
     const matches = ((_b = propsString === null || propsString === void 0 ? void 0 : propsString.match(/(\w+):?\s*([\w\d]+)?/gi)) === null || _b === void 0 ? void 0 : _b.shift()) || [];
     console.log(propsString, matches);
