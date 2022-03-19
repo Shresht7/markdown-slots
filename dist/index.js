@@ -5707,6 +5707,7 @@ const fs = __importStar(__nccwpck_require__(7561));
 const path = __importStar(__nccwpck_require__(9411));
 const config_1 = __nccwpck_require__(6373);
 //  Helpers
+const metadata_1 = __nccwpck_require__(3252);
 const helpers_1 = __nccwpck_require__(3202);
 //  ======
 //  ACTION
@@ -5717,7 +5718,7 @@ function action() {
         let contents = yield (0, helpers_1.readFile)(config_1.src);
         //  Place content in markdown-slots
         core.startGroup('Placing contents in slots');
-        for (const [slot, content] of Object.entries(config_1.slots)) {
+        for (let { slot, content, props } of config_1.slots) {
             //  Create regex for the markdown slot
             const regex = (0, helpers_1.createSlotRegex)(slot);
             //  Match regex contents
@@ -5727,8 +5728,8 @@ function action() {
             } //  Continue if no match is found
             //  Get props
             const propsString = (match === null || match === void 0 ? void 0 : match.at(1)) || '';
-            const props = (0, helpers_1.getProps)(propsString);
-            //  Substitute content
+            props = Object.assign(Object.assign({}, props), (0, helpers_1.getProps)(propsString));
+            //  Place content
             core.info(`\t - ${slot}`);
             contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, props, content, config_1.removeSlots));
         }
@@ -5737,6 +5738,8 @@ function action() {
         core.startGroup('Generated File Contents');
         core.info(contents);
         core.endGroup();
+        //  Set Output
+        core.setOutput(metadata_1.outputs.contents, contents);
         //  Return early if this was a dry-run
         if (config_1.isDryRun) {
             core.warning('Note: This is a dry-run!');
@@ -5824,6 +5827,19 @@ exports.isDryRun = core.getBooleanInput(metadata_1.inputs.isDryRun);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createSlotRegex = void 0;
+/**
+ * Creates a regex to match the given slot
+ *
+ * for example:
+ *
+ * using a slot name of `text` will create a regex to match
+ * ```md
+ * <!-- slot: text (...slotProps) -->
+ *  (...defaultContent)
+ * <!-- /slot -->
+ * ```
+ * where, `slotProps` and `defaultContent` are capture-able groups
+*/
 function createSlotRegex(slot) {
     //  Generate regular expression for the markdown slot
     return new RegExp([
@@ -5858,17 +5874,30 @@ exports.createSlotRegex = createSlotRegex;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getProps = void 0;
+/**
+ * Regex to match props
+ *
+ * matches
+ *  - {key: value}
+ *  - {key:value}
+ *  - {key}
+ *  - { key : value }
+*/
+const propsRegex = /\{\s*(\w+)\s*:?\s*([\s\S.]+?)\s*}/i;
+/** Extract props from the propsString */
 function getProps(propsString) {
-    const props = {
-        propsString
-    };
-    for (const str of propsString.split(/\|/i)) {
-        const match = str.match(/\{\s*(\w+)\s*:?\s*([\s\S.]+?)\s*}/i) || [];
+    //  Initialize default props object
+    const props = { propsString };
+    //  Iterate over the props and extract key-value pairs
+    for (const str of propsString.split(/\|/i)) { //  Split propsString on |
+        //  Extract key and value
+        const match = str.match(propsRegex) || [];
         const key = match === null || match === void 0 ? void 0 : match[1];
         if (!key) {
             continue;
         }
-        const value = (match === null || match === void 0 ? void 0 : match[2]) || true;
+        const value = (match === null || match === void 0 ? void 0 : match[2]) || 'true'; //  Default to true if no match value was found
+        //  Assign to props object
         props[key] = value;
     }
     return props;
@@ -5901,10 +5930,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__exportStar(__nccwpck_require__(6697), exports);
 __exportStar(__nccwpck_require__(1128), exports);
-__exportStar(__nccwpck_require__(5953), exports);
 __exportStar(__nccwpck_require__(3448), exports);
+__exportStar(__nccwpck_require__(5953), exports);
+__exportStar(__nccwpck_require__(6697), exports);
 
 
 /***/ }),
@@ -5916,6 +5945,7 @@ __exportStar(__nccwpck_require__(3448), exports);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.placeSlotContent = void 0;
+/** Place the provided content in the slot and handle props */
 function placeSlotContent(slot, props, content, removeSlots = false) {
     const contents = [content];
     //  Attach prefix and suffix
@@ -6098,7 +6128,9 @@ exports.inputs = {
     isDryRun: 'dry-run'
 };
 /** Metadata outputs */
-exports.outputs = {};
+exports.outputs = {
+    contents: 'contents'
+};
 
 
 /***/ }),
