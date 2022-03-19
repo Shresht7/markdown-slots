@@ -5720,12 +5720,17 @@ function action() {
         for (const [slot, content] of Object.entries(config_1.slots)) {
             //  Create regex for the markdown slot
             const regex = (0, helpers_1.createSlotRegex)(slot);
-            if (!regex.test(contents)) {
-                break;
-            } //  Break if no match is found
+            //  Match regex contents
+            const match = contents.match(regex);
+            if (!match) {
+                continue;
+            } //  Continue if no match is found
+            //  Get props
+            const propsString = (match === null || match === void 0 ? void 0 : match.at(1)) || '';
+            const props = (0, helpers_1.getProps)(propsString);
             //  Substitute content
             core.info(`\t - ${slot}`);
-            contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, content, config_1.removeSlots));
+            contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, props, content, config_1.removeSlots));
         }
         core.endGroup();
         //  Log the generated contents
@@ -5828,6 +5833,8 @@ function createSlotRegex(slot) {
         '\\s*',
         slot,
         '\\s*',
+        '(.*?)',
+        '\\s*',
         '-->',
         '\\s*',
         '([\\s\\S.]*?)',
@@ -5837,9 +5844,36 @@ function createSlotRegex(slot) {
         '\\/slot',
         '\\s*',
         '-->' //  Matches -->
-    ].join(''), 'gim');
+    ].join(''), 'im');
 }
 exports.createSlotRegex = createSlotRegex;
+
+
+/***/ }),
+
+/***/ 3448:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getProps = void 0;
+function getProps(propsString) {
+    const props = {
+        propsString
+    };
+    for (const str of propsString.split(/\|/i)) {
+        const match = str.match(/\{\s*(\w+)\s*:?\s*([\s\S.]+?)\s*}/i) || [];
+        const key = match === null || match === void 0 ? void 0 : match[1];
+        if (!key) {
+            continue;
+        }
+        const value = (match === null || match === void 0 ? void 0 : match[2]) || true;
+        props[key] = value;
+    }
+    return props;
+}
+exports.getProps = getProps;
 
 
 /***/ }),
@@ -5870,6 +5904,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 __exportStar(__nccwpck_require__(6697), exports);
 __exportStar(__nccwpck_require__(1128), exports);
 __exportStar(__nccwpck_require__(5953), exports);
+__exportStar(__nccwpck_require__(3448), exports);
 
 
 /***/ }),
@@ -5881,13 +5916,21 @@ __exportStar(__nccwpck_require__(5953), exports);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.placeSlotContent = void 0;
-function placeSlotContent(slot, content, removeSlots = false) {
+function placeSlotContent(slot, props, content, removeSlots = false) {
+    const contents = [content];
+    //  Attach prefix and suffix
+    if (props.prefix) {
+        contents.unshift(`${props.prefix}`);
+    }
+    if (props.suffix) {
+        contents.push(`${props.suffix}`);
+    }
+    //  Attach slots if removeSlots is false
     if (!removeSlots) {
-        return `<!-- slot: ${slot} -->\n\n${content}\n\n<!-- /slot -->`;
+        contents.unshift(`<!-- slot: ${slot} ${props.propsString} -->`);
+        contents.push(`<!-- /slot -->`);
     }
-    else {
-        return content;
-    }
+    return contents.join('\n');
 }
 exports.placeSlotContent = placeSlotContent;
 

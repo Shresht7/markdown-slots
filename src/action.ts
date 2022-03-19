@@ -12,7 +12,12 @@ import {
 } from './config'
 
 //  Helpers
-import { createSlotRegex, placeSlotContent, readFile } from './helpers'
+import {
+    readFile,
+    getProps,
+    createSlotRegex,
+    placeSlotContent
+} from './helpers'
 
 //  ======
 //  ACTION
@@ -30,13 +35,19 @@ async function action() {
         //  Create regex for the markdown slot
         const regex = createSlotRegex(slot)
 
-        if (!regex.test(contents)) { break }    //  Break if no match is found
+        //  Match regex contents
+        const match = contents.match(regex)
+        if (!match) { continue }    //  Continue if no match is found
+
+        //  Get props
+        const propsString = match?.at(1) || ''
+        const props = getProps(propsString)
 
         //  Substitute content
         core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,
-            placeSlotContent(slot, content, removeSlots)
+            placeSlotContent(slot, props, content, removeSlots)
         )
 
     }

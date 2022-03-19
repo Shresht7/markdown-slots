@@ -1,10 +1,8 @@
 # Markdown-Slots
 ----------------
 
-<!-- slot: description -->
-
+<!-- slot: description  -->
 A GitHub Action to dynamically place content in markdown slots.
-
 <!-- /slot -->
 
 ## Usage
@@ -34,7 +32,6 @@ Hello World!
 ## Inputs
 
 <!-- slot: inputs -->
-
 | Input          | Description                                                                  |       Default |   Required   |
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :----------: |
 | `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |              |
@@ -42,5 +39,4 @@ Hello World!
 | `slots`        | YAML string mapping slot-names to content                                    |   `undefined` | **required** |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |              |
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |              |
-
 <!-- /slot -->

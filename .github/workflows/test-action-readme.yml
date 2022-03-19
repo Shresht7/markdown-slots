@@ -10,6 +10,11 @@ name: Test-Action-Readme
 on:
   # Manual workflow dispatch
   workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Dry Run Toggle
+        required: true
+        default: 'true'
 
 # Jobs
 # ====
@@ -38,7 +43,7 @@ jobs:
         id: markdown-slots
         uses: ./
         with:
-          dry-run: true
+          dry-run: ${{ github.event.inputs.dry-run }}
           slots: |
             description: ${{ steps.action-metadata.outputs.description }}
             inputs: ${{ steps.action-metadata.outputs.inputs-md-table }}
