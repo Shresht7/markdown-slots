@@ -5718,12 +5718,10 @@ function action() {
         //  Place content in markdown-slots
         core.startGroup('Placing contents in slots');
         for (const [slot, content] of Object.entries(config_1.slots)) {
-            console.log(slot);
-            console.log(content);
             //  Create regex for the markdown slot
             const regex = (0, helpers_1.createSlotRegex)(slot);
+            //  Match regex contents
             const match = contents.match(regex);
-            console.log(match);
             if (!match) {
                 continue;
             } //  Continue if no match is found
@@ -5868,14 +5866,14 @@ exports.createSlotRegex = createSlotRegex;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getProps = void 0;
 function getProps(propsString) {
-    var _a;
     const props = {};
-    console.log(propsString);
-    const matches = ((_a = propsString === null || propsString === void 0 ? void 0 : propsString.match(/{\s*(\w+)\s*:?\s*([\s\S.]*?)\s*}/gi)) === null || _a === void 0 ? void 0 : _a.slice(1)) || [];
-    console.log(matches);
-    for (let i = 0; i < matches.length; i = i + 2) {
-        const key = matches[i];
-        const value = (matches === null || matches === void 0 ? void 0 : matches[i + 1]) || true;
+    for (const str of propsString.split(/\|/i)) {
+        const match = str.match(/\{\s*(\w+)\s*:?\s*([\s\S.]+?)\s*}/i) || [];
+        const key = match === null || match === void 0 ? void 0 : match[1];
+        if (!key) {
+            continue;
+        }
+        const value = (match === null || match === void 0 ? void 0 : match[2]) || true;
         props[key] = value;
     }
     console.log(props);

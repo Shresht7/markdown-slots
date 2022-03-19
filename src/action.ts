@@ -32,15 +32,11 @@ async function action() {
     core.startGroup('Placing contents in slots')
     for (const [slot, content] of Object.entries(slots)) {
 
-        console.log(slot)
-        console.log(content)
-
         //  Create regex for the markdown slot
         const regex = createSlotRegex(slot)
 
+        //  Match regex contents
         const match = contents.match(regex)
-
-        console.log(match)
         if (!match) { continue }    //  Continue if no match is found
 
         //  Get props
