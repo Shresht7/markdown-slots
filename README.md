@@ -25,14 +25,15 @@ To use this action, create slot tags in the markdown you want to use as the sour
 <!-- /slot -->
 ```
 
-Use this action in a workflow step and provide a YAML compatible string mapping slot-names to their corresponding content. In the example below, the text `Hello World!` is assigned to the slot named `text`.
+Use this action in a workflow step and provide a YAML compatible string array mapping slot-names to their corresponding content. In the example below, the text `Hello World!` is assigned to the slot named `text`.
 
 ```yaml
 - name: markdown-slots
   uses: Shresht7/markdown-slots@v1
   with:
     slots: |
-      text: Hello World!
+      - slot: text
+        content: Hello World!
 ```
 
 When the action runs, it will write the dynamically generated content to the destination `dest` specified in the inputs.
@@ -54,7 +55,7 @@ Hello World!
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :----------: |
 | `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |              |
 | `dest`         | Desired output path for the generated content                                | `./README.md` |              |
-| `slots`        | YAML string mapping slot-names to content                                    |   `undefined` | **required** |
+| `slots`        | YAML string array mapping slot-names to content                              |   `undefined` | **required** |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |              |
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |              |
 <!-- /slot -->

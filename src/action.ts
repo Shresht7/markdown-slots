@@ -12,6 +12,7 @@ import {
 } from './config'
 
 //  Helpers
+import { outputs } from './metadata'
 import {
     readFile,
     getProps,
@@ -30,7 +31,7 @@ async function action() {
 
     //  Place content in markdown-slots
     core.startGroup('Placing contents in slots')
-    for (const [slot, content] of Object.entries(slots)) {
+    for (let { slot, content, props } of slots) {
 
         //  Create regex for the markdown slot
         const regex = createSlotRegex(slot)
@@ -41,7 +42,7 @@ async function action() {
 
         //  Get props
         const propsString = match?.at(1) || ''
-        const props = getProps(propsString)
+        props = { ...props, ...getProps(propsString) }
 
         //  Place content
         core.info(`\t - ${slot}`)
@@ -57,6 +58,9 @@ async function action() {
     core.startGroup('Generated File Contents')
     core.info(contents)
     core.endGroup()
+
+    //  Set Output
+    core.setOutput(outputs.contents, contents)
 
     //  Return early if this was a dry-run
     if (isDryRun) {

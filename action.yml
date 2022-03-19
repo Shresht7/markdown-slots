@@ -35,7 +35,7 @@ inputs:
   # =====
 
   slots:
-    description: YAML string mapping slot-names to content
+    description: YAML string array mapping slot-names to content
     required: true
 
   remove-slots:

@@ -13,4 +13,5 @@ export const inputs = {
 
 /** Metadata outputs */
 export const outputs = {
+    contents: 'contents'
 } as const
