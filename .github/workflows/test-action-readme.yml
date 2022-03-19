@@ -49,9 +49,6 @@ jobs:
               content: ${{ steps.action-metadata.outputs.description }}
             - slot: inputs
               content: ${{ steps.action-metadata.outputs.inputs-md-table }}
-              props:
-                prefix: \n
-                suffix: \n
 
       # Push Changes 🌎
       # ===============
