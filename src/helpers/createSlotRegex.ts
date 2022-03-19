@@ -8,7 +8,7 @@ export function createSlotRegex(slot: string) {
             '\\s*',
             slot,               //  Matches the provided slot name
             '\\s*',
-            '(.*?)',            //  Matches props (e.g. hello: world color: red)
+            '(.*?)',            //  Extract props string (e.g. hello: world color: red)
             '\\s*',
             '-->',              //  Matches -->
             '\\s*',
@@ -20,6 +20,6 @@ export function createSlotRegex(slot: string) {
             '\\s*',
             '-->'               //  Matches -->
         ].join(''),
-        'gim'
+        'im'
     )
 }

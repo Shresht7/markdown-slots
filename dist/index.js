@@ -5853,7 +5853,7 @@ function createSlotRegex(slot) {
         '\\/slot',
         '\\s*',
         '-->' //  Matches -->
-    ].join(''), 'gim');
+    ].join(''), 'im');
 }
 exports.createSlotRegex = createSlotRegex;
 
