@@ -32,7 +32,7 @@ Hello World!
 ## Inputs
 
 <!-- slot: inputs {prefix: '\n```yaml\n'} | {suffix: '\n```\n'} -->
-\n```yaml\n
+'\n```yaml\n'
 | Input          | Description                                                                  |       Default |   Required   |
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :----------: |
 | `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |              |
@@ -40,5 +40,5 @@ Hello World!
 | `slots`        | YAML string mapping slot-names to content                                    |   `undefined` | **required** |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |              |
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |              |
-\n```\n
+'\n```\n'
 <!-- /slot -->
