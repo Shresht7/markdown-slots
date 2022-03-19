@@ -1,7 +1,7 @@
 # Markdown-Slots
 ----------------
 
-<!-- slot: description -->
+<!-- slot: description  -->
 A GitHub Action to dynamically place content in markdown slots.
 <!-- /slot -->
 
