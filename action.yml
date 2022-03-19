@@ -50,3 +50,10 @@ inputs:
     description: Boolean to determine if this is a dry-run
     default: "false"
     required: false
+
+# Outputs
+# =======
+
+outputs:
+  contents:
+    description: Generated markdown content

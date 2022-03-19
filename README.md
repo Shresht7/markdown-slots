@@ -47,7 +47,7 @@ Use this action in a workflow step and provide a YAML compatible array mapping s
 
 When the action runs, it will write the dynamically generated content to the slot. The generated markdown will be [output](#outputs) as `contents`. The action will also write contents to the specified destination `dest` [input](#inputs).
 
-> Writing to the dest file is a local operation. You may want to follow-up with a add-and-commit or create-pull-request workflow-step. See [examples](#examples).
+> Writing to the dest file is a local operation. You may want to follow-up with a add-and-commit or create-pull-request workflow-step.
 
 ```md
 # Example Markdown
@@ -79,7 +79,7 @@ The only **required** input is `slots`. `slots` is a stringified YAML array that
 
 > <step_id> is a fictional step that outputs `date`, `month` and `year`
 
-> Note that the `|` is important. GitHub Actions expect `strings` not `yaml-objects`. The `|` signifies that `slots` is a multiline string, which is concatenated and parsed as yaml in the action. Without the `|` the action will assume that you're specifying the path/url to a file containing the `slots` array.
+> Note that the `|` is important. GitHub Actions expect `strings` not `yaml-objects`. The `|` signifies that `slots` is a multiline string, which is concatenated and parsed as yaml in the action.
 
 #### Slot Props
 
@@ -126,7 +126,11 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 
 ## Outputs
 
-The action outputs the generated contents as `contents`. You can access this in subsequent steps using [expressions](https://docs.github.com/en/actions/learn-github-actions/expressions) `${{ steps.markdown-slots.outputs.contents }}` (This assumes you set the `id` as `markdown-slots` in the [workflow step](#2-use-action-in-a-workflow)).
+The action outputs the generated contents as `contents`. You can access this in subsequent steps using [expressions](https://docs.github.com/en/actions/learn-github-actions/expressions).
+
+e.g. `${{ steps.markdown-slots.outputs.contents }}`
+
+(This assumes you set the `id` as `markdown-slots` in the [workflow step](#2-use-action-in-a-workflow)).
 
 ### List of all outputs:
 
@@ -137,7 +141,7 @@ The action outputs the generated contents as `contents`. You can access this in 
 
 ### Action-Readme
 
-The description, inputs and outputs table are placed in slots using this action! See the [action-readme workflow](./.github/workflows/action-readme.yml)
+The description, inputs and outputs table of this README are placed in slots using this action! See the [action-readme workflow](./.github/workflows/action-readme.yml) for more details.
 
 <details>
   <summary>Click here to see the workflow</summary>
