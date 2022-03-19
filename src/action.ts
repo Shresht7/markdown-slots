@@ -11,7 +11,7 @@ import {
 } from './config'
 
 //  Helpers
-import { readFile } from './helpers'
+import { createSlotRegex, readFile } from './helpers'
 
 //  ======
 //  ACTION
@@ -24,20 +24,20 @@ async function action() {
 
     //  Place content in markdown-slots
     core.startGroup('Placing contents in slots')
-    for (const [slotName, content] of Object.entries(slots)) {
+    for (const [slot, content] of Object.entries(slots)) {
 
-        //  Generate regular expression for the markdown slot
-        const regex = new RegExp('<!--\\s*slot:\\s*' + slotName + '\\s*-->\\s*([\\s\\S.]*?)\\s*<!--\\s*\\/slot\\s*-->', 'gim')
+        //  Create regex for the markdown slot
+        const regex = createSlotRegex(slot)
 
         if (!regex.test(contents)) { break }    //  Break if no match is found
 
         //  Substitute content
-        core.info(`\t - ${slotName}`)
+        core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,
             removeSlots
                 ? content
-                : `<!-- slot: ${slotName} -->\n\n${content}\n\n<!-- /slot -->`
+                : `<!-- slot: ${slot} -->\n\n${content}\n\n<!-- /slot -->`
         )
 
     }
