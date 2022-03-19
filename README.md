@@ -37,7 +37,7 @@ Hello World!
 
 | Input          | Description                                                                  |       Default |   Required   |
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :----------: |
-| `src`          | Path to the source file with markdown-slots                                  | `./README.md` |              |
+| `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |              |
 | `dest`         | Desired output path for the generated content                                | `./README.md` |              |
 | `slots`        | YAML string mapping slot-names to content                                    |   `undefined` | **required** |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |              |
