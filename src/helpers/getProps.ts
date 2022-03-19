@@ -3,7 +3,7 @@ export function getProps(propsString: string): Record<string, string | number | 
 
     console.log(propsString)
 
-    const matches = propsString?.match(/(\w+):?\s*([\w\d]+)?/gi)?.shift() || []
+    const matches = propsString?.match(/(\w+):?\s*([\w\d]+)?/gi)?.slice(1) || []
 
     console.log(matches)
 
