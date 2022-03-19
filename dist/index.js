@@ -5718,6 +5718,7 @@ function action() {
         //  Place content in markdown-slots
         core.startGroup('Placing contents in slots');
         for (const [slot, content] of Object.entries(config_1.slots)) {
+            console.log(slot, content);
             //  Create regex for the markdown slot
             const regex = (0, helpers_1.createSlotRegex)(slot);
             if (!regex.test(contents)) {
@@ -5867,11 +5868,13 @@ function getProps(content, regex) {
     const props = {};
     const propsString = (_a = content.match(regex)) === null || _a === void 0 ? void 0 : _a.at(1);
     const matches = ((_b = propsString === null || propsString === void 0 ? void 0 : propsString.match(/(\w+):?\s*([\w\d]+)?/gi)) === null || _b === void 0 ? void 0 : _b.shift()) || [];
+    console.log(propsString, matches);
     for (let i = 0; i < matches.length; i = i + 2) {
         const key = matches[i];
         const value = (matches === null || matches === void 0 ? void 0 : matches[i + 1]) || true;
         props[key] = value;
     }
+    console.log(props);
     return props;
 }
 exports.getProps = getProps;
