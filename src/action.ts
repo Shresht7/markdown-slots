@@ -1,10 +1,11 @@
 //  Library
 import * as core from '@actions/core'
 import * as fs from 'node:fs'
+import * as path from 'node:path'
 import {
+    src,
     dest,
-    srcPath,
-    destPath,
+    workspace,
     slots,
     removeSlots,
     isDryRun
@@ -20,7 +21,7 @@ import { createSlotRegex, placeSlotContent, readFile } from './helpers'
 async function action() {
 
     //  Read file-contents with markdown-slots
-    let contents = await readFile(srcPath)
+    let contents = await readFile(src)
 
     //  Place content in markdown-slots
     core.startGroup('Placing contents in slots')
@@ -53,6 +54,7 @@ async function action() {
     }
 
     //  Write generated content back to file
+    const destPath = path.join(workspace, dest)
     await fs.promises.writeFile(destPath, contents, { encoding: 'utf-8' })
     core.notice(`Content written to ${dest}`)
 }

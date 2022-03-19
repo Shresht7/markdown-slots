@@ -1,6 +1,5 @@
 //  Library
 import * as core from '@actions/core'
-import * as path from 'node:path'
 import * as jsYaml from 'js-yaml'
 import { inputs } from './metadata'
 
@@ -8,24 +7,22 @@ import { inputs } from './metadata'
 //  CONFIG
 //  ======
 
-const workspace = process.env.GITHUB_WORKSPACE || ''
 
-if (!workspace) {
+if (!process.env.GITHUB_WORKSPACE) {
     throw new Error('Invalid GITHUB_WORKSPACE. You need to checkout this repository using the actions/checkout@v3 github-action for the GITHUB_WORKSPACE environment variable')
 }
+
+/** GitHub Workspace URL */
+export const workspace = process.env.GITHUB_WORKSPACE
 
 // FILE PATHS
 // ==========
 
 /** Path to the source file with markdown-slots */
 export const src = core.getInput(inputs.src, { required: true })
-/** Workspace resolved source path */
-export const srcPath = path.join(workspace, src)
 
 /** Path to output generated file-contents */
 export const dest = core.getInput(inputs.dest, { required: true })
-/** Workspace resolved source path */
-export const destPath = path.join(workspace, dest)
 
 // SLOTS
 // =====
