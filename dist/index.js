@@ -5718,21 +5718,22 @@ function action() {
         //  Place content in markdown-slots
         core.startGroup('Placing contents in slots');
         for (const [slot, content] of Object.entries(config_1.slots)) {
-            console.log(slot, content);
+            console.log(slot);
+            console.log(content);
             //  Create regex for the markdown slot
             const regex = (0, helpers_1.createSlotRegex)(slot);
             if (!regex.test(contents)) {
                 break;
             } //  Break if no match is found
             //  Get props
-            const props = (0, helpers_1.getProps)(content, regex);
+            const [props, propsString] = (0, helpers_1.getProps)(content, regex);
             //  Attach prefix
             if (props.prefix) {
                 contents = props.prefix + contents;
             }
             //  Substitute content
             core.info(`\t - ${slot}`);
-            contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, content, config_1.removeSlots));
+            contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, propsString, content, config_1.removeSlots));
             if (props.suffix) {
                 contents = contents + props.suffix;
             }
@@ -5866,7 +5867,7 @@ exports.getProps = void 0;
 function getProps(content, regex) {
     var _a, _b;
     const props = {};
-    const propsString = (_a = content.match(regex)) === null || _a === void 0 ? void 0 : _a.at(1);
+    const propsString = ((_a = content.match(regex)) === null || _a === void 0 ? void 0 : _a.at(1)) || '';
     const matches = ((_b = propsString === null || propsString === void 0 ? void 0 : propsString.match(/(\w+):?\s*([\w\d]+)?/gi)) === null || _b === void 0 ? void 0 : _b.shift()) || [];
     console.log(propsString, matches);
     for (let i = 0; i < matches.length; i = i + 2) {
@@ -5875,7 +5876,7 @@ function getProps(content, regex) {
         props[key] = value;
     }
     console.log(props);
-    return props;
+    return [props, propsString];
 }
 exports.getProps = getProps;
 
@@ -5920,9 +5921,9 @@ __exportStar(__nccwpck_require__(3448), exports);
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.placeSlotContent = void 0;
-function placeSlotContent(slot, content, removeSlots = false) {
+function placeSlotContent(slot, props, content, removeSlots = false) {
     if (!removeSlots) {
-        return `<!-- slot: ${slot} -->\n\n${content}\n\n<!-- /slot -->`;
+        return `<!-- slot: ${slot} ${props} -->\n\n${content}\n\n<!-- /slot -->`;
     }
     else {
         return content;

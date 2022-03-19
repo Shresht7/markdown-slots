@@ -32,7 +32,8 @@ async function action() {
     core.startGroup('Placing contents in slots')
     for (const [slot, content] of Object.entries(slots)) {
 
-        console.log(slot, content)
+        console.log(slot)
+        console.log(content)
 
         //  Create regex for the markdown slot
         const regex = createSlotRegex(slot)
@@ -40,7 +41,7 @@ async function action() {
         if (!regex.test(contents)) { break }    //  Break if no match is found
 
         //  Get props
-        const props = getProps(content, regex)
+        const [props, propsString] = getProps(content, regex)
 
         //  Attach prefix
         if (props.prefix) { contents = props.prefix + contents }
@@ -49,7 +50,7 @@ async function action() {
         core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,
-            placeSlotContent(slot, content, removeSlots)
+            placeSlotContent(slot, propsString, content, removeSlots)
         )
 
         if (props.suffix) { contents = contents + props.suffix }

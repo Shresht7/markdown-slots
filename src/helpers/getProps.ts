@@ -1,7 +1,7 @@
-export function getProps(content: string, regex: RegExp): Record<string, string | number | boolean> {
+export function getProps(content: string, regex: RegExp): [Record<string, string | number | boolean>, string] {
     const props: Record<string, string | number | boolean> = {}
 
-    const propsString = content.match(regex)?.at(1)
+    const propsString = content.match(regex)?.at(1) || ''
     const matches = propsString?.match(/(\w+):?\s*([\w\d]+)?/gi)?.shift() || []
 
     console.log(propsString, matches)
@@ -16,5 +16,5 @@ export function getProps(content: string, regex: RegExp): Record<string, string 
 
     console.log(props)
 
-    return props
+    return [props, propsString]
 }
