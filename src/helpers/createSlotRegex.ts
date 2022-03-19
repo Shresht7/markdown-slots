@@ -8,6 +8,8 @@ export function createSlotRegex(slot: string) {
             '\\s*',
             slot,               //  Matches the provided slot name
             '\\s*',
+            '(.*?)',
+            '\\s*',
             '-->',              //  Matches -->
             '\\s*',
             '([\\s\\S.]*?)',    //  Matches literally anything

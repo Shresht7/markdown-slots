@@ -12,7 +12,12 @@ import {
 } from './config'
 
 //  Helpers
-import { createSlotRegex, placeSlotContent, readFile } from './helpers'
+import {
+    readFile,
+    getProps,
+    createSlotRegex,
+    placeSlotContent
+} from './helpers'
 
 //  ======
 //  ACTION
@@ -32,12 +37,20 @@ async function action() {
 
         if (!regex.test(contents)) { break }    //  Break if no match is found
 
+        //  Get props
+        const props = getProps(content, regex)
+
+        //  Attach prefix
+        if (props.prefix) { contents = props.prefix + contents }
+
         //  Substitute content
         core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,
             placeSlotContent(slot, content, removeSlots)
         )
+
+        if (props.suffix) { contents = contents + props.suffix }
 
     }
     core.endGroup()
