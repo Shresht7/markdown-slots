@@ -7,7 +7,7 @@ export function placeSlotContent(slot: string, props: Record<string, string | nu
 
     //  Attach slots if removeSlots is false
     if (!removeSlots) {
-        contents.unshift(`<!-- slot: ${slot} ${props.propsString}`)
+        contents.unshift(`<!-- slot: ${slot} ${props.propsString} -->`)
         contents.push(`<!-- /slot -->`)
     }
 

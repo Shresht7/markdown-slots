@@ -5927,7 +5927,7 @@ function placeSlotContent(slot, props, content, removeSlots = false) {
     }
     //  Attach slots if removeSlots is false
     if (!removeSlots) {
-        contents.unshift(`<!-- slot: ${slot} ${props.propsString}`);
+        contents.unshift(`<!-- slot: ${slot} ${props.propsString} -->`);
         contents.push(`<!-- /slot -->`);
     }
     return contents.join('\n');
