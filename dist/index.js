@@ -5728,16 +5728,9 @@ function action() {
             //  Get props
             const propsString = (match === null || match === void 0 ? void 0 : match.at(1)) || '';
             const props = (0, helpers_1.getProps)(propsString);
-            //  Attach prefix
-            if (props.prefix) {
-                contents = props.prefix + contents;
-            }
             //  Substitute content
             core.info(`\t - ${slot}`);
-            contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, propsString, content, config_1.removeSlots));
-            if (props.suffix) {
-                contents = contents + props.suffix;
-            }
+            contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, props, content, config_1.removeSlots));
         }
         core.endGroup();
         //  Log the generated contents
@@ -5866,7 +5859,9 @@ exports.createSlotRegex = createSlotRegex;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getProps = void 0;
 function getProps(propsString) {
-    const props = {};
+    const props = {
+        propsString
+    };
     for (const str of propsString.split(/\|/i)) {
         const match = str.match(/\{\s*(\w+)\s*:?\s*([\s\S.]+?)\s*}/i) || [];
         const key = match === null || match === void 0 ? void 0 : match[1];
@@ -5922,12 +5917,20 @@ __exportStar(__nccwpck_require__(3448), exports);
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.placeSlotContent = void 0;
 function placeSlotContent(slot, props, content, removeSlots = false) {
+    const contents = [content];
+    //  Attach prefix and suffix
+    if (props.prefix) {
+        contents.unshift(props.prefix.toString());
+    }
+    if (props.suffix) {
+        contents.push(props.suffix.toString());
+    }
+    //  Attach slots if removeSlots is false
     if (!removeSlots) {
-        return `<!-- slot: ${slot} ${props} -->\n\n${content}\n\n<!-- /slot -->`;
+        contents.unshift(`<!-- slot: ${slot} ${props.propsString}`);
+        contents.push(`<!-- /slot -->`);
     }
-    else {
-        return content;
-    }
+    return contents.join('\n');
 }
 exports.placeSlotContent = placeSlotContent;
 

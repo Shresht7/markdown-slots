@@ -1,5 +1,7 @@
 export function getProps(propsString: string): Record<string, string | number | boolean> {
-    const props: Record<string, string | number | boolean> = {}
+    const props: Record<string, string | number | boolean> = {
+        propsString
+    }
 
     for (const str of propsString.split(/\|/i)) {
         const match = str.match(/\{\s*(\w+)\s*:?\s*([\s\S.]+?)\s*}/i) || []

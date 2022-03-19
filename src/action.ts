@@ -43,17 +43,12 @@ async function action() {
         const propsString = match?.at(1) || ''
         const props = getProps(propsString)
 
-        //  Attach prefix
-        if (props.prefix) { contents = props.prefix + contents }
-
         //  Substitute content
         core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,
-            placeSlotContent(slot, propsString, content, removeSlots)
+            placeSlotContent(slot, props, content, removeSlots)
         )
-
-        if (props.suffix) { contents = contents + props.suffix }
 
     }
     core.endGroup()
