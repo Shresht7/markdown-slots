@@ -12,6 +12,7 @@ import {
 } from './config'
 
 //  Helpers
+import { outputs } from './metadata'
 import {
     readFile,
     getProps,
@@ -57,6 +58,9 @@ async function action() {
     core.startGroup('Generated File Contents')
     core.info(contents)
     core.endGroup()
+
+    //  Set Output
+    core.setOutput(outputs.contents, contents)
 
     //  Return early if this was a dry-run
     if (isDryRun) {
