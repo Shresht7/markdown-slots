@@ -38,7 +38,7 @@ async function action() {
         //  Create regex for the markdown slot
         const regex = createSlotRegex(slot)
 
-        const match = content.match(regex)
+        const match = contents.match(regex)
 
         console.log(match)
         if (!match) { continue }    //  Continue if no match is found

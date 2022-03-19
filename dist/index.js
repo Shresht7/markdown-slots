@@ -5722,7 +5722,7 @@ function action() {
             console.log(content);
             //  Create regex for the markdown slot
             const regex = (0, helpers_1.createSlotRegex)(slot);
-            const match = content.match(regex);
+            const match = contents.match(regex);
             console.log(match);
             if (!match) {
                 continue;
