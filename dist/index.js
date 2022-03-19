@@ -5920,10 +5920,10 @@ function placeSlotContent(slot, props, content, removeSlots = false) {
     const contents = [content];
     //  Attach prefix and suffix
     if (props.prefix) {
-        contents.unshift(props.prefix.toString());
+        contents.unshift(`${props.prefix}`);
     }
     if (props.suffix) {
-        contents.push(props.suffix.toString());
+        contents.push(`${props.suffix}`);
     }
     //  Attach slots if removeSlots is false
     if (!removeSlots) {
