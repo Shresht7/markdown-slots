@@ -5876,7 +5876,6 @@ function getProps(propsString) {
         const value = (match === null || match === void 0 ? void 0 : match[2]) || true;
         props[key] = value;
     }
-    console.log(props);
     return props;
 }
 exports.getProps = getProps;

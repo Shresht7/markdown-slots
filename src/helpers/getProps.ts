@@ -9,7 +9,5 @@ export function getProps(propsString: string): Record<string, string | number | 
         props[key] = value
     }
 
-    console.log(props)
-
     return props
 }
