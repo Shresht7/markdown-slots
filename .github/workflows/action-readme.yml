@@ -41,7 +41,7 @@ jobs:
 
       - name: markdown-slots
         id: markdown-slots
-        uses: Shresht7/markdown-slots@main
+        uses: Shresht7/markdown-slots@prefix
         with:
           slots: |
             description: ${{ steps.action-metadata.outputs.description }}
