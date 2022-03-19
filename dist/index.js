@@ -5871,7 +5871,7 @@ function getProps(propsString) {
     var _a;
     const props = {};
     console.log(propsString);
-    const matches = ((_a = propsString === null || propsString === void 0 ? void 0 : propsString.match(/(\w+):?\s*([\w\d]+)?/gi)) === null || _a === void 0 ? void 0 : _a.slice(1)) || [];
+    const matches = ((_a = propsString === null || propsString === void 0 ? void 0 : propsString.match(/{\s*(\w+)\s*:?\s*([\s\S.]*?)\s*}/gi)) === null || _a === void 0 ? void 0 : _a.slice(1)) || [];
     console.log(matches);
     for (let i = 0; i < matches.length; i = i + 2) {
         const key = matches[i];

@@ -33,7 +33,7 @@ Hello World!
 ```
 ## Inputs
 
-<!-- slot: inputs prefix:\n```yaml\n suffix:\n```\n -->
+<!-- slot: inputs {prefix: \n```yaml\n} {suffix: \n```\n} -->
 
 | Input          | Description                                                                  |       Default |   Required   |
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :----------: |
