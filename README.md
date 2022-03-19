@@ -1,7 +1,7 @@
 # Markdown-Slots
 ----------------
 
-<!-- slot: description 
+<!-- slot: description -->
 A GitHub Action to dynamically place content in markdown slots.
 <!-- /slot -->
 
@@ -31,7 +31,7 @@ Hello World!
 ```
 ## Inputs
 
-<!-- slot: inputs {prefix: \n```yaml\n} | {suffix: \n```\n}
+<!-- slot: inputs {prefix: \n```yaml\n} | {suffix: \n```\n} -->
 \n```yaml\n
 | Input          | Description                                                                  |       Default |   Required   |
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :----------: |
