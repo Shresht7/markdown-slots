@@ -38,10 +38,14 @@ async function action() {
         //  Create regex for the markdown slot
         const regex = createSlotRegex(slot)
 
-        if (!regex.test(contents)) { break }    //  Break if no match is found
+        const match = content.match(regex)
+
+        console.log(match)
+        if (!match) { break }    //  Break if no match is found
 
         //  Get props
-        const [props, propsString] = getProps(content, regex)
+        const propsString = match?.at(1) || ''
+        const props = getProps(propsString)
 
         //  Attach prefix
         if (props.prefix) { contents = props.prefix + contents }

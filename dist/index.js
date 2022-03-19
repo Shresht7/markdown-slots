@@ -5722,11 +5722,14 @@ function action() {
             console.log(content);
             //  Create regex for the markdown slot
             const regex = (0, helpers_1.createSlotRegex)(slot);
-            if (!regex.test(contents)) {
+            const match = content.match(regex);
+            console.log(match);
+            if (!match) {
                 break;
             } //  Break if no match is found
             //  Get props
-            const [props, propsString] = (0, helpers_1.getProps)(content, regex);
+            const propsString = (match === null || match === void 0 ? void 0 : match.at(1)) || '';
+            const props = (0, helpers_1.getProps)(propsString);
             //  Attach prefix
             if (props.prefix) {
                 contents = props.prefix + contents;
@@ -5864,20 +5867,18 @@ exports.createSlotRegex = createSlotRegex;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getProps = void 0;
-function getProps(content, regex) {
-    var _a, _b;
+function getProps(propsString) {
+    var _a;
     const props = {};
-    console.log(content.match(regex));
-    const propsString = ((_a = content.match(regex)) === null || _a === void 0 ? void 0 : _a.at(1)) || '';
-    const matches = ((_b = propsString === null || propsString === void 0 ? void 0 : propsString.match(/(\w+):?\s*([\w\d]+)?/gi)) === null || _b === void 0 ? void 0 : _b.shift()) || [];
-    console.log(propsString, matches);
+    const matches = ((_a = propsString === null || propsString === void 0 ? void 0 : propsString.match(/(\w+):?\s*([\w\d]+)?/gi)) === null || _a === void 0 ? void 0 : _a.shift()) || [];
+    console.log(matches);
     for (let i = 0; i < matches.length; i = i + 2) {
         const key = matches[i];
         const value = (matches === null || matches === void 0 ? void 0 : matches[i + 1]) || true;
         props[key] = value;
     }
     console.log(props);
-    return [props, propsString];
+    return props;
 }
 exports.getProps = getProps;
 
