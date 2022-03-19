@@ -32,6 +32,8 @@ async function action() {
     core.startGroup('Placing contents in slots')
     for (const [slot, content] of Object.entries(slots)) {
 
+        console.log(slot, content)
+
         //  Create regex for the markdown slot
         const regex = createSlotRegex(slot)
 
