@@ -43,7 +43,7 @@ async function action() {
         const propsString = match?.at(1) || ''
         const props = getProps(propsString)
 
-        //  Substitute content
+        //  Place content
         core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,

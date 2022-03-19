@@ -1,4 +1,8 @@
-export function placeSlotContent(slot: string, props: Record<string, string | number | boolean>, content: string, removeSlots: boolean = false): string {
+//  Type Definitions
+import type { Props } from '../types'
+
+/** Place the provided content in the slot and handle props */
+export function placeSlotContent(slot: string, props: Props, content: string, removeSlots: boolean = false): string {
     const contents: string[] = [content]
 
     //  Attach prefix and suffix
