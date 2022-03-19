@@ -5870,6 +5870,7 @@ exports.getProps = void 0;
 function getProps(propsString) {
     var _a;
     const props = {};
+    console.log(propsString);
     const matches = ((_a = propsString === null || propsString === void 0 ? void 0 : propsString.match(/(\w+):?\s*([\w\d]+)?/gi)) === null || _a === void 0 ? void 0 : _a.shift()) || [];
     console.log(matches);
     for (let i = 0; i < matches.length; i = i + 2) {

@@ -1,6 +1,8 @@
 export function getProps(propsString: string): Record<string, string | number | boolean> {
     const props: Record<string, string | number | boolean> = {}
 
+    console.log(propsString)
+
     const matches = propsString?.match(/(\w+):?\s*([\w\d]+)?/gi)?.shift() || []
 
     console.log(matches)
