@@ -2,7 +2,7 @@
 # ACTION README
 # =============
 
-name: Action-Readme
+name: Action Readme
 
 # Activation Events
 # =================
@@ -55,6 +55,7 @@ jobs:
 
       # Push Changes 🌎
       # ===============
+
       - name: check for changes
         id: git-diff
         run: |
