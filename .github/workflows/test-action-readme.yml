@@ -36,6 +36,15 @@ jobs:
         id: action-metadata
         uses: Shresht7/action-metadata@main
 
+      # Read Example Workflow File 📄
+      # =============================
+
+      - name: read-file
+        id: read-file
+        uses: Shresht7/read-file-action@v1
+        with:
+          path: .github/workflows/action-readme.yml
+
       # Markdown Slots 📋
       # =================
 
@@ -51,6 +60,8 @@ jobs:
               content: ${{ steps.action-metadata.outputs.inputs-md-table }}
             - slot: outputs
               content: ${{ steps.action-metadata.outputs.outputs-md-table }}
+            - slot: action-readme-workflow
+              content: $${{ toJSON(steps.read-file.outputs.contents) }}
 
       # Push Changes 🌎
       # ===============
