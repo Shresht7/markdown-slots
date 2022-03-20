@@ -4,7 +4,7 @@
 
 name: markdown-slots
 author: Shresht7
-description: A GitHub Action to dynamically place content in markdown slots.
+description: A GitHub Action to dynamically place content in markdown slots
 
 runs:
   using: node16

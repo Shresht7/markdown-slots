@@ -33,6 +33,6 @@ export function createSlotRegex(slot: string) {
             '\\s*',
             '-->'               //  Matches -->
         ].join(''),
-        'im'
+        'im'                    //  Flags
     )
 }

@@ -35,4 +35,5 @@ export function getProps(propsString: string): Props {
     }
 
     return props
+
 }

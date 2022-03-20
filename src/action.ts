@@ -24,6 +24,7 @@ import {
 //  ACTION
 //  ======
 
+/** Markdown-Slots GitHub Action */
 async function action() {
 
     //  Read file-contents with markdown-slots

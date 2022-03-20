@@ -9,7 +9,7 @@ export function placeSlotContent(slot: string, props: Props, content: string, re
     if (props.prefix) { contents.unshift(`${props.prefix}`) }
     if (props.suffix) { contents.push(`${props.suffix}`) }
 
-    //  Attach slots if removeSlots is false
+    //  If removeSlots is false, keep the slot tags
     if (!removeSlots) {
         contents.unshift(`<!-- slot: ${slot} ${props.propsString} -->`)
         contents.push(`<!-- /slot -->`)
