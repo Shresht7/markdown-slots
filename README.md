@@ -8,7 +8,7 @@ A GitHub Action to dynamically place content in markdown slots
 
 ---
 
-## Usage
+## 📖 Usage
 
 ### 1. Create markdown slots
 
@@ -61,7 +61,7 @@ Hello World!
 
 ---
 
-## Inputs
+## 📋 Inputs
 
 ### Slots
 
@@ -124,7 +124,7 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 
 ---
 
-## Outputs
+## 📋 Outputs
 
 The action outputs the generated contents as `contents`. You can access this in subsequent steps using [expressions](https://docs.github.com/en/actions/learn-github-actions/expressions).
 
@@ -140,15 +140,23 @@ e.g. `${{ steps.markdown-slots.outputs.contents }}`
 | `contents` | Generated markdown content |
 <!-- /slot -->
 
-## Examples
+## 📃 Workflow Examples
 
-### Action-Readme
+### Action Readme
 
-The description, inputs and outputs table of this README are placed in slots using this action! See the [action-readme workflow](./.github/workflows/action-readme.yml) for more details.
+The _description_, _inputs_ and _outputs_ tables of this README are placed in slots using this action! See the [action-readme workflow](./.github/workflows/action-readme.yml) for more details.
 
 <details>
+
   <summary>Click here to see the workflow</summary>
 
   <!-- slot: action-readme-workflow -->
   <!-- /slot -->
+
 </details>
+
+---
+
+## 📑 License
+
+> [MIT License](./LICENSE)
