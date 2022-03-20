@@ -97,8 +97,8 @@ for example, to wrap some code in a code-block:
     - slot: code
       content: console.log(content)
       props:
-        prefix: ```js
-        suffix: ```
+        prefix: "```js"
+        suffix: "```"
 ```
 
 Alternatively, slot props can also be specified on the slot-tag itself. These props take priority over the ones set in the workflow.
@@ -149,6 +149,8 @@ The _description_, _inputs_ and _outputs_ tables of this README are placed in sl
 <details>
 
   <summary>Click here to see the workflow</summary>
+
+  <br />
 
   <!-- slot: action-readme-workflow  -->
 ```yaml
