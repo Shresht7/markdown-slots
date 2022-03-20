@@ -34,7 +34,7 @@ jobs:
 
       - name: action-metadata
         id: action-metadata
-        uses: Shresht7/action-metadata@main
+        uses: Shresht7/action-metadata@v1
 
       # Read Example Workflow File 📄
       # =============================
