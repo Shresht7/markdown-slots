@@ -162,7 +162,7 @@ name: Action Readme
 # =================
 
 on:
-  # When the action.yml file changes
+  # When the action.yml or this workflow file changes
   push:
     branches:
       - main
@@ -191,7 +191,7 @@ jobs:
 
       - name: action-metadata
         id: action-metadata
-        uses: Shresht7/action-metadata@main
+        uses: Shresht7/action-metadata@v1
 
       # Read Example Workflow File 📄
       # =============================
