@@ -122,8 +122,6 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |              |
 <!-- /slot -->
 
----
-
 ## 📋 Outputs
 
 The action outputs the generated contents as `contents`. You can access this in subsequent steps using [expressions](https://docs.github.com/en/actions/learn-github-actions/expressions).
