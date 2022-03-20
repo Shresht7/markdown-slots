@@ -151,6 +151,7 @@ The _description_, _inputs_ and _outputs_ tables of this README are placed in sl
   <summary>Click here to see the workflow</summary>
 
   <!-- slot: action-readme-workflow  -->
+```yaml
 # =============
 # ACTION README
 # =============
@@ -216,6 +217,9 @@ jobs:
               content: ${{ steps.action-metadata.outputs.outputs-md-table }}
             - slot: action-readme-workflow
               content: ${{ toJSON(steps.read-file.outputs.contents) }}
+              props:
+                prefix: "```yaml"
+                suffix: "```"
 
       # Push Changes 🌎
       # ===============
@@ -238,6 +242,7 @@ jobs:
           git commit -m 'Update README.md 📄'
           git push
 
+```
 <!-- /slot -->
 
 </details>
