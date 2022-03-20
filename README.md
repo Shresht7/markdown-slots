@@ -150,8 +150,95 @@ The _description_, _inputs_ and _outputs_ tables of this README are placed in sl
 
   <summary>Click here to see the workflow</summary>
 
-  <!-- slot: action-readme-workflow -->
-  <!-- /slot -->
+  <!-- slot: action-readme-workflow  -->
+# =============
+# ACTION README
+# =============
+
+name: Action Readme
+
+# Activation Events
+# =================
+
+on:
+  # When the action.yml file changes
+  push:
+    branches:
+      - main
+    paths:
+      - action.yml
+
+  # Manual workflow dispatch
+  workflow_dispatch:
+
+# Jobs
+# ====
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      # Actions Checkout ✅
+      # ===================
+
+      - name: checkout
+        uses: actions/checkout@v3
+
+      # Generate Action Metadata 📜
+      # ===========================
+
+      - name: action-metadata
+        id: action-metadata
+        uses: Shresht7/action-metadata@main
+
+      # Read Example Workflow File 📄
+      # =============================
+
+      - name: read-file
+        id: read-file
+        uses: Shresht7/read-file-action@v1
+        with:
+          path: .github/workflows/action-readme.yml
+
+      # Markdown Slots 📋
+      # =================
+
+      - name: markdown-slots
+        id: markdown-slots
+        uses: Shresht7/markdown-slots@main
+        with:
+          slots: |
+            - slot: description
+              content: ${{ steps.action-metadata.outputs.description }}
+            - slot: inputs
+              content: ${{ steps.action-metadata.outputs.inputs-md-table }}
+            - slot: outputs
+              content: ${{ steps.action-metadata.outputs.outputs-md-table }}
+            - slot: action-readme-workflow
+              content: ${{ toJSON(steps.read-file.outputs.contents) }}
+
+      # Push Changes 🌎
+      # ===============
+
+      - name: check for changes
+        id: git-diff
+        run: |
+          if git diff --exit-code; then
+            echo "::set-output name=changes_exist::false"
+          else
+            echo "::set-output name=changes_exist::true"
+          fi
+
+      - name: push
+        if: ${{ steps.git-diff.outputs.changes_exist == 'true' }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m 'Update README.md 📄'
+          git push
+
+<!-- /slot -->
 
 </details>
 
