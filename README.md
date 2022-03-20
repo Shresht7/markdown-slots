@@ -1,12 +1,12 @@
 <h1 align='center'>Markdown Slots</h1>
 
----
-
-<br />
-
+<p align='center'>
 <!-- slot: description  -->
 A GitHub Action to dynamically place content in markdown slots.
 <!-- /slot -->
+</p>
+
+---
 
 ## Usage
 
