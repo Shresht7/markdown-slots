@@ -62,6 +62,9 @@ jobs:
               content: ${{ steps.action-metadata.outputs.outputs-md-table }}
             - slot: action-readme-workflow
               content: ${{ toJSON(steps.read-file.outputs.contents) }}
+              props:
+                prefix: ```yaml
+                suffix: ```
 
       # Push Changes 🌎
       # ===============
