@@ -168,6 +168,7 @@ on:
       - main
     paths:
       - action.yml
+      - .github/workflows/action-readme.yml
 
   # Manual workflow dispatch
   workflow_dispatch:
@@ -206,7 +207,7 @@ jobs:
 
       - name: markdown-slots
         id: markdown-slots
-        uses: Shresht7/markdown-slots@main
+        uses: Shresht7/markdown-slots@v1
         with:
           slots: |
             - slot: description
