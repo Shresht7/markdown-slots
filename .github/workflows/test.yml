@@ -1,0 +1,28 @@
+# ====
+# TEST
+# ====
+
+name: Test
+
+# Activation Events
+# =================
+
+on: # Validate on any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - main
+      - "releases/*"
+  workflow_dispatch:
+
+# Jobs
+# ====
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          npm install
+          npm run test
