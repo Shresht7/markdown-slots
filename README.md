@@ -220,7 +220,7 @@ jobs:
             - slot: action-readme-workflow
               content: ${{ toJSON(steps.read-file.outputs.contents) }}
               props:
-                prefix: "```yaml"
+                prepend: "```yaml"
                 append: "```"
 
       # Push Changes 🌎
