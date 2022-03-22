@@ -5,8 +5,8 @@
 /** Props available on the markdown slots tag */
 export interface Props extends Record<string, string | number | boolean | undefined> {
     str: string,
-    prefix?: string,
-    suffix?: string,
+    prepend?: string,
+    append?: string,
     removeSlots?: boolean
 }
 

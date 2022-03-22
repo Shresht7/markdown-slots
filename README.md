@@ -97,14 +97,14 @@ for example, to wrap some code in a code-block:
     - slot: code
       content: console.log(content)
       props:
-        prefix: "```js"
-        suffix: "```"
+        prepend: "```js"
+        append: "```"
 ```
 
 Alternatively, slot props can also be specified on the slot-tag itself. These props take priority over the ones set in the workflow.
 
 ```md
-<!-- slot: code {prefix: ```js} | {suffix: ```}  -->
+<!-- slot: code {prepend: ```js} | {append: ```}  -->
 <!-- /slot -->
 ```
 
@@ -220,7 +220,7 @@ jobs:
               content: ${{ toJSON(steps.read-file.outputs.contents) }}
               props:
                 prefix: "```yaml"
-                suffix: "```"
+                append: "```"
 
       # Push Changes 🌎
       # ===============

@@ -5,9 +5,9 @@ import type { Props } from '../types'
 export function placeSlotContent(slot: string, content: string, props: Props): string {
     const contents: string[] = [content]
 
-    //  Attach prefix and suffix
-    if (props.prefix) { contents.unshift(`${props.prefix}`) }
-    if (props.suffix) { contents.push(`${props.suffix}`) }
+    //  Attach prepend and append
+    if (props.prepend) { contents.unshift(`${props.prepend}`) }
+    if (props.append) { contents.push(`${props.append}`) }
 
     //  If removeSlots is false, keep the slot tags
     if (!props.removeSlots) {
