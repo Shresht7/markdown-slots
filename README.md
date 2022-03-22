@@ -85,10 +85,11 @@ The only **required** input is `slots`. `slots` is a stringified YAML array that
 
 In addition to `slot` and `content`, each slot input can take the following props
 
-| Property | Description                                |
-| -------- | ------------------------------------------ |
-| `prefix` | Adds the `prefix` before the slot-contents |
-| `suffix` | Adds the `suffix` after the slot-contents  |
+| Property      | Description                                         |
+| ------------- | --------------------------------------------------- |
+| `prepend`     | Adds the `prepend` content before the slot-contents |
+| `append`      | Adds the `append` content after the slot-contents   |
+| `removeSlots` | Should remove the slot tags upon substitution       |
 
 for example, to wrap some code in a code-block:
 
@@ -97,18 +98,18 @@ for example, to wrap some code in a code-block:
     - slot: code
       content: console.log(content)
       props:
-        prefix: "```js"
-        suffix: "```"
+        prepend: "```js"
+        append: "```"
 ```
 
 Alternatively, slot props can also be specified on the slot-tag itself. These props take priority over the ones set in the workflow.
 
 ```md
-<!-- slot: code {prefix: ```js} | {suffix: ```}  -->
+<!-- slot: code | prepend: ```js, append: ``` -->
 <!-- /slot -->
 ```
 
-> The slot props follow the format `{key: value}` and are separated by `|`
+> The slot props follow the `key: value` format and are separated by `,`. A `|` character separates the slot: name from the slot props.
 
 ### List of all inputs:
 
@@ -220,7 +221,7 @@ jobs:
               content: ${{ toJSON(steps.read-file.outputs.contents) }}
               props:
                 prefix: "```yaml"
-                suffix: "```"
+                append: "```"
 
       # Push Changes 🌎
       # ===============

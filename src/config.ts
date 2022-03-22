@@ -32,7 +32,12 @@ export const dest = core.getInput(inputs.dest, { required: true })
 export const slots = jsYaml.load(core.getMultilineInput(inputs.slots).join('\n')) as Slot[]
 
 /** Boolean to determine if this action should remove slot tags upon replacement */
-export const removeSlots = core.getBooleanInput(inputs.removeSlots)
+const removeSlots = core.getBooleanInput(inputs.removeSlots)
+
+/** Global Props */
+export const globalProps = {
+    removeSlots
+}
 
 // MISCELLANEOUS
 // =============

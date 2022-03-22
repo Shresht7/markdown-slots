@@ -7,8 +7,8 @@ import {
     dest,
     workspace,
     slots,
-    removeSlots,
-    isDryRun
+    isDryRun,
+    globalProps
 } from './config'
 
 //  Helpers
@@ -42,14 +42,14 @@ async function action() {
         if (!match) { continue }    //  Continue if no match is found
 
         //  Get props
-        const propsString = match?.at(1) || ''
-        props = { ...props, ...getProps(propsString) }
+        const str = match?.at(1) || ''
+        props = { ...globalProps, ...props, ...getProps(str) }
 
         //  Place content
         core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,
-            placeSlotContent(slot, props, content, removeSlots)
+            placeSlotContent(slot, content, props)
         )
 
     }

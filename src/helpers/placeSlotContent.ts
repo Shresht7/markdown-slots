@@ -2,16 +2,16 @@
 import type { Props } from '../types'
 
 /** Place the provided content in the slot and handle props */
-export function placeSlotContent(slot: string, props: Props, content: string, removeSlots: boolean = false): string {
+export function placeSlotContent(slot: string, content: string, props: Props): string {
     const contents: string[] = [content]
 
-    //  Attach prefix and suffix
-    if (props.prefix) { contents.unshift(`${props.prefix}`) }
-    if (props.suffix) { contents.push(`${props.suffix}`) }
+    //  Attach prepend and append
+    if (props.prepend) { contents.unshift(`${props.prepend}`) }
+    if (props.append) { contents.push(`${props.append}`) }
 
     //  If removeSlots is false, keep the slot tags
-    if (!removeSlots) {
-        contents.unshift(`<!-- slot: ${slot} ${props.propsString} -->`)
+    if (!props.removeSlots) {
+        contents.unshift(`<!-- slot: ${slot} ${props.str} -->`)
         contents.push(`<!-- /slot -->`)
     }
 

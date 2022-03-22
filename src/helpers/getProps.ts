@@ -5,35 +5,40 @@ import type { Props } from '../types'
  * Regex to match props
  * 
  * matches
- *  - {key: value}
- *  - {key:value}
- *  - {key}
- *  - { key : value }
+ *  - key: value
+ *  - key
 */
-const propsRegex = /\{\s*(\w+)\s*:?\s*([\s\S.]+?)\s*}/i
+const propsRegex = /\s*(\w+)\s*:?\s*([\s\S.]+)?\s*/i
 
-/** Extract props from the propsString */
-export function getProps(propsString: string): Props {
+/** Extract props from the str */
+export function getProps(str: string): Props {
 
     //  Initialize default props object
-    const props: Props = { propsString }
+    const props: Props = { str }
 
     //  Iterate over the props and extract key-value pairs
-    for (const str of propsString.split(/\|/i)) {   //  Split propsString on |
+    for (const prop of str.split(',')) {   //  Split str on ,
 
         //  Extract key and value
-        const match = str.match(propsRegex) || []
+        const match = prop.match(propsRegex) || []
 
         const key = match?.[1] as keyof Props
         if (!key) { continue }
 
-        const value = match?.[2] || 'true'        //  Default to true if no match value was found
+        const value: string | boolean | number = match?.[2] || true        //  Default to true if no match value was found
 
-        //  Assign to props object
-        props[key] = value
+        const val = value.toString().toLowerCase()
+        if (value === 'true' || value === 'false') {
+            props[key] = Boolean(value)
+        } else if (!Number.isNaN(parseInt(val))) {
+            props[key] = parseInt(val)
+        } else {
+            props[key] = value
+        }
 
     }
 
     return props
 
 }
+

@@ -21,7 +21,8 @@ export function createSlotRegex(slot: string) {
             '\\s*',
             slot,               //  Matches the provided slot name
             '\\s*',
-            '(.*?)',            //  Extract props string (e.g. {hello: world} {color: red} {bold})
+            '\\|?',             //  Optional | to mark the start of props-string
+            '(.*?)',            //  Extract props string (e.g. hello: world, color: red, bold)
             '\\s*',
             '-->',              //  Matches -->
             '\\s*',

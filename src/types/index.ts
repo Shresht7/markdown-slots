@@ -3,10 +3,11 @@
 //  ================
 
 /** Props available on the markdown slots tag */
-export interface Props {
-    propsString: string,
-    prefix?: string,
-    suffix?: string
+export interface Props extends Record<string, string | number | boolean | undefined> {
+    str: string,
+    prepend?: string,
+    append?: string,
+    removeSlots?: boolean
 }
 
 /** Slot interface */
