@@ -43,13 +43,14 @@ async function action() {
 
         //  Get props
         const propsString = match?.at(1) || ''
-        props = { ...props, ...getProps(propsString) }
+        const globalProps = { removeSlots }
+        props = { ...globalProps, ...props, ...getProps(propsString) }
 
         //  Place content
         core.info(`\t - ${slot}`)
         contents = contents.replace(
             regex,
-            placeSlotContent(slot, props, content, removeSlots)
+            placeSlotContent(slot, content, props)
         )
 
     }

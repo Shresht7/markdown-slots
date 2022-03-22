@@ -30,8 +30,11 @@ export function getProps(propsString: string): Props {
         const value = match?.[2] || 'true'        //  Default to true if no match value was found
 
         //  Assign to props object
-        props[key] = value
-
+        if (key === 'removeSlots') {
+            props[key] = value.toLowerCase() === 'true'
+        } else {
+            props[key] = value
+        }
     }
 
     return props

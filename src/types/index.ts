@@ -6,7 +6,8 @@
 export interface Props {
     propsString: string,
     prefix?: string,
-    suffix?: string
+    suffix?: string,
+    removeSlots?: boolean
 }
 
 /** Slot interface */
