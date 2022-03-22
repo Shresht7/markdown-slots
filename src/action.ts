@@ -7,8 +7,8 @@ import {
     dest,
     workspace,
     slots,
-    removeSlots,
-    isDryRun
+    isDryRun,
+    globalProps
 } from './config'
 
 //  Helpers
@@ -43,7 +43,6 @@ async function action() {
 
         //  Get props
         const propsString = match?.at(1) || ''
-        const globalProps = { removeSlots }
         props = { ...globalProps, ...props, ...getProps(propsString) }
 
         //  Place content
