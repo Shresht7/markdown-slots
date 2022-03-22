@@ -5712,6 +5712,7 @@ const helpers_1 = __nccwpck_require__(3202);
 //  ======
 //  ACTION
 //  ======
+/** Markdown-Slots GitHub Action */
 function action() {
     return __awaiter(this, void 0, void 0, function* () {
         //  Read file-contents with markdown-slots
@@ -5727,11 +5728,11 @@ function action() {
                 continue;
             } //  Continue if no match is found
             //  Get props
-            const propsString = (match === null || match === void 0 ? void 0 : match.at(1)) || '';
-            props = Object.assign(Object.assign({}, props), (0, helpers_1.getProps)(propsString));
+            const str = (match === null || match === void 0 ? void 0 : match.at(1)) || '';
+            props = Object.assign(Object.assign(Object.assign({}, config_1.globalProps), props), (0, helpers_1.getProps)(str));
             //  Place content
             core.info(`\t - ${slot}`);
-            contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, props, content, config_1.removeSlots));
+            contents = contents.replace(regex, (0, helpers_1.placeSlotContent)(slot, content, props));
         }
         core.endGroup();
         //  Log the generated contents
@@ -5787,7 +5788,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.isDryRun = exports.removeSlots = exports.slots = exports.dest = exports.src = exports.workspace = void 0;
+exports.isDryRun = exports.globalProps = exports.slots = exports.dest = exports.src = exports.workspace = void 0;
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
 const jsYaml = __importStar(__nccwpck_require__(1917));
@@ -5811,7 +5812,11 @@ exports.dest = core.getInput(metadata_1.inputs.dest, { required: true });
 /** YAML configuration mapping slotNames and slotContents */
 exports.slots = jsYaml.load(core.getMultilineInput(metadata_1.inputs.slots).join('\n'));
 /** Boolean to determine if this action should remove slot tags upon replacement */
-exports.removeSlots = core.getBooleanInput(metadata_1.inputs.removeSlots);
+const removeSlots = core.getBooleanInput(metadata_1.inputs.removeSlots);
+/** Global Props */
+exports.globalProps = {
+    removeSlots
+};
 // MISCELLANEOUS
 // =============
 /** Boolean to determine if this is a dry-run */
@@ -5849,6 +5854,7 @@ function createSlotRegex(slot) {
         '\\s*',
         slot,
         '\\s*',
+        '\\|?',
         '(.*?)',
         '\\s*',
         '-->',
@@ -5860,7 +5866,8 @@ function createSlotRegex(slot) {
         '\\/slot',
         '\\s*',
         '-->' //  Matches -->
-    ].join(''), 'im');
+    ].join(''), 'im' //  Flags
+    );
 }
 exports.createSlotRegex = createSlotRegex;
 
@@ -5878,27 +5885,33 @@ exports.getProps = void 0;
  * Regex to match props
  *
  * matches
- *  - {key: value}
- *  - {key:value}
- *  - {key}
- *  - { key : value }
+ *  - key: value
+ *  - key
 */
-const propsRegex = /\{\s*(\w+)\s*:?\s*([\s\S.]+?)\s*}/i;
-/** Extract props from the propsString */
-function getProps(propsString) {
+const propsRegex = /\s*(\w+)\s*:?\s*([\s\S.]+)?\s*/i;
+/** Extract props from the str */
+function getProps(str) {
     //  Initialize default props object
-    const props = { propsString };
+    const props = { str };
     //  Iterate over the props and extract key-value pairs
-    for (const str of propsString.split(/\|/i)) { //  Split propsString on |
+    for (const prop of str.split(',')) { //  Split str on ,
         //  Extract key and value
-        const match = str.match(propsRegex) || [];
+        const match = prop.match(propsRegex) || [];
         const key = match === null || match === void 0 ? void 0 : match[1];
         if (!key) {
             continue;
         }
-        const value = (match === null || match === void 0 ? void 0 : match[2]) || 'true'; //  Default to true if no match value was found
-        //  Assign to props object
-        props[key] = value;
+        const value = (match === null || match === void 0 ? void 0 : match[2]) || true; //  Default to true if no match value was found
+        const val = value.toString().toLowerCase();
+        if (value === 'true' || value === 'false') {
+            props[key] = Boolean(value);
+        }
+        else if (!Number.isNaN(parseInt(val))) {
+            props[key] = parseInt(val);
+        }
+        else {
+            props[key] = value;
+        }
     }
     return props;
 }
@@ -5946,18 +5959,18 @@ __exportStar(__nccwpck_require__(6697), exports);
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.placeSlotContent = void 0;
 /** Place the provided content in the slot and handle props */
-function placeSlotContent(slot, props, content, removeSlots = false) {
+function placeSlotContent(slot, content, props) {
     const contents = [content];
-    //  Attach prefix and suffix
-    if (props.prefix) {
-        contents.unshift(`${props.prefix}`);
+    //  Attach prepend and append
+    if (props.prepend) {
+        contents.unshift(`${props.prepend}`);
     }
-    if (props.suffix) {
-        contents.push(`${props.suffix}`);
+    if (props.append) {
+        contents.push(`${props.append}`);
     }
-    //  Attach slots if removeSlots is false
-    if (!removeSlots) {
-        contents.unshift(`<!-- slot: ${slot} ${props.propsString} -->`);
+    //  If removeSlots is false, keep the slot tags
+    if (!props.removeSlots) {
+        contents.unshift(`<!-- slot: ${slot} ${props.str} -->`);
         contents.push(`<!-- /slot -->`);
     }
     return contents.join('\n');
