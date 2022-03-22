@@ -3,7 +3,7 @@
 //  ================
 
 /** Props available on the markdown slots tag */
-export interface Props {
+export interface Props extends Record<string, string | number | boolean | undefined> {
     propsString: string,
     prefix?: string,
     suffix?: string,

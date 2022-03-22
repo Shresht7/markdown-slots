@@ -52,15 +52,4 @@ describe('Slot Regex', () => {
         expect(str).toMatch(regex)
     })
 
-    it('should match multiline definitions', () => {
-        const str = `
-            <!--
-                slot: text
-                prepend: "\`\`\`yaml"
-                append: "\`\`\`"
-            -->
-            <!-- /slot -->
-        `
-    })
-
 })
