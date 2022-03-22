@@ -4,7 +4,7 @@
 
 /** Props available on the markdown slots tag */
 export interface Props extends Record<string, string | number | boolean | undefined> {
-    propsString: string,
+    str: string,
     prefix?: string,
     suffix?: string,
     removeSlots?: boolean

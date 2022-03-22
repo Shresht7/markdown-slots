@@ -10,17 +10,17 @@ import type { Props } from '../types'
 */
 const propsRegex = /\s*(\w+)\s*:?\s*([\s\S.]+)?\s*/i
 
-/** Extract props from the propsString */
-export function getProps(propsString: string): Props {
+/** Extract props from the str */
+export function getProps(str: string): Props {
 
     //  Initialize default props object
-    const props: Props = { propsString }
+    const props: Props = { str }
 
     //  Iterate over the props and extract key-value pairs
-    for (const str of propsString.split(',')) {   //  Split propsString on ,
+    for (const prop of str.split(',')) {   //  Split str on ,
 
         //  Extract key and value
-        const match = str.match(propsRegex) || []
+        const match = prop.match(propsRegex) || []
 
         const key = match?.[1] as keyof Props
         if (!key) { continue }

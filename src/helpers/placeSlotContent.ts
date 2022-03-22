@@ -11,7 +11,7 @@ export function placeSlotContent(slot: string, content: string, props: Props): s
 
     //  If removeSlots is false, keep the slot tags
     if (!props.removeSlots) {
-        contents.unshift(`<!-- slot: ${slot} ${props.propsString} -->`)
+        contents.unshift(`<!-- slot: ${slot} ${props.str} -->`)
         contents.push(`<!-- /slot -->`)
     }
 
