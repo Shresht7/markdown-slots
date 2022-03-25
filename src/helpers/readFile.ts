@@ -1,12 +1,12 @@
 //  Library
 import * as fs from 'node:fs'
 import * as path from 'node:path'
-import isUrl from 'is-url-superb'
+import { isURL } from './isURL'
 import { workspace } from '../config'
 
 /** Read file from the given path or url */
 export async function readFile(src: string) {
-    return isUrl(src)
+    return isURL(src)
         ? readFromURL(src)
         : readFromFile(src)
 }
