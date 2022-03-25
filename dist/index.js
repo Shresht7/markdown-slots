@@ -5704,7 +5704,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
 const fs = __importStar(__nccwpck_require__(7561));
-const path = __importStar(__nccwpck_require__(9411));
 const config_1 = __nccwpck_require__(6373);
 //  Helpers
 const metadata_1 = __nccwpck_require__(3252);
@@ -5747,8 +5746,7 @@ function action() {
             return;
         }
         //  Write generated content back to file
-        const destPath = path.join(config_1.workspace, config_1.dest);
-        yield fs.promises.writeFile(destPath, contents, { encoding: 'utf-8' });
+        yield fs.promises.writeFile(config_1.dest, contents, { encoding: 'utf-8' });
         core.notice(`Content written to ${config_1.dest}`);
     });
 }
@@ -5788,7 +5786,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.isDryRun = exports.globalProps = exports.slots = exports.dest = exports.src = exports.workspace = void 0;
+exports.isDryRun = exports.globalProps = exports.slots = exports.dest = exports.src = void 0;
 //  Library
 const core = __importStar(__nccwpck_require__(2186));
 const jsYaml = __importStar(__nccwpck_require__(1917));
@@ -5796,11 +5794,6 @@ const metadata_1 = __nccwpck_require__(3252);
 //  ======
 //  CONFIG
 //  ======
-if (!process.env.GITHUB_WORKSPACE) {
-    throw new Error('Invalid GITHUB_WORKSPACE. You need to checkout this repository using the actions/checkout@v3 github-action for the GITHUB_WORKSPACE environment variable');
-}
-/** GitHub Workspace URL */
-exports.workspace = process.env.GITHUB_WORKSPACE;
 // FILE PATHS
 // ==========
 /** Path to the source file with markdown-slots */
@@ -5945,8 +5938,31 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 __exportStar(__nccwpck_require__(1128), exports);
 __exportStar(__nccwpck_require__(3448), exports);
+__exportStar(__nccwpck_require__(4127), exports);
 __exportStar(__nccwpck_require__(5953), exports);
 __exportStar(__nccwpck_require__(6697), exports);
+
+
+/***/ }),
+
+/***/ 4127:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.isURL = void 0;
+/** Determine if the str is a valid URL */
+function isURL(str) {
+    try {
+        new URL(str);
+        return true;
+    }
+    catch (_) {
+        return false;
+    }
+}
+exports.isURL = isURL;
 
 
 /***/ }),
@@ -6017,20 +6033,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.readFile = void 0;
 //  Library
 const fs = __importStar(__nccwpck_require__(7561));
-const path = __importStar(__nccwpck_require__(9411));
-const is_url_superb_1 = __importDefault(__nccwpck_require__(7548));
-const config_1 = __nccwpck_require__(6373);
+const isURL_1 = __nccwpck_require__(4127);
 /** Read file from the given path or url */
 function readFile(src) {
     return __awaiter(this, void 0, void 0, function* () {
-        return (0, is_url_superb_1.default)(src)
+        return (0, isURL_1.isURL)(src)
             ? readFromURL(src)
             : readFromFile(src);
     });
@@ -6050,8 +6061,7 @@ function readFromURL(url) {
 }
 /** Read from the given path */
 function readFromFile(src) {
-    const srcPath = path.join(config_1.workspace, src);
-    return fs.promises.readFile(srcPath, { encoding: 'utf-8' });
+    return fs.promises.readFile(src, { encoding: 'utf-8' });
 }
 
 
@@ -6204,14 +6214,6 @@ module.exports = require("node:fs");
 
 /***/ }),
 
-/***/ 9411:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("node:path");
-
-/***/ }),
-
 /***/ 2037:
 /***/ ((module) => {
 
@@ -6241,39 +6243,6 @@ module.exports = require("tls");
 
 "use strict";
 module.exports = require("util");
-
-/***/ }),
-
-/***/ 7548:
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __nccwpck_require__) => {
-
-"use strict";
-__nccwpck_require__.r(__webpack_exports__);
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ isUrl)
-/* harmony export */ });
-function isUrl(string, {lenient = false} = {}) {
-	if (typeof string !== 'string') {
-		throw new TypeError('Expected a string');
-	}
-
-	string = string.trim();
-	if (string.includes(' ')) {
-		return false;
-	}
-
-	try {
-		new URL(string); // eslint-disable-line no-new
-		return true;
-	} catch {
-		if (lenient) {
-			return isUrl(`https://${string}`);
-		}
-
-		return false;
-	}
-}
-
 
 /***/ })
 
@@ -6310,34 +6279,6 @@ function isUrl(string, {lenient = false} = {}) {
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
