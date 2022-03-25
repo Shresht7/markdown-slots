@@ -114,13 +114,13 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 ### List of all inputs:
 
 <!-- slot: inputs  -->
-| Input          | Description                                                                  |       Default |   Required   |
-| :------------- | :--------------------------------------------------------------------------- | ------------: | :----------: |
-| `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |              |
-| `dest`         | Desired output path for the generated content                                | `./README.md` |              |
-| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` | **required** |
-| `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |              |
-| `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |              |
+| Input          | Description                                                                  |       Default | Required |
+| :------------- | :--------------------------------------------------------------------------- | ------------: | :------: |
+| `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |          |
+| `dest`         | Desired output path for the generated content                                | `./README.md` |          |
+| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |     ✅    |
+| `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |          |
+| `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |          |
 <!-- /slot -->
 
 ## 📋 Outputs
@@ -173,6 +173,11 @@ on:
 
   # Manual workflow dispatch
   workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Dry-Run Switch
+        required: true
+        default: "false"
 
 # Jobs
 # ====
