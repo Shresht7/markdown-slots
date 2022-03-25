@@ -1,11 +1,9 @@
 //  Library
 import * as core from '@actions/core'
 import * as fs from 'node:fs'
-import * as path from 'node:path'
 import {
     src,
     dest,
-    workspace,
     slots,
     isDryRun,
     globalProps
@@ -70,8 +68,7 @@ async function action() {
     }
 
     //  Write generated content back to file
-    const destPath = path.join(workspace, dest)
-    await fs.promises.writeFile(destPath, contents, { encoding: 'utf-8' })
+    await fs.promises.writeFile(dest, contents, { encoding: 'utf-8' })
     core.notice(`Content written to ${dest}`)
 }
 
