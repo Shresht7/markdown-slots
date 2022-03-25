@@ -32,14 +32,12 @@ const packageJSON = JSON.parse(fs.readFileSync('./package.json', { encoding: 'ut
 describe('Action Metadata', () => {
 
     test('name should be the same as in package.json', () => {
-        expect(metadata.name).toBe(packageJSON.name)
+        expect(metadata.name.toLowerCase()).toBe(packageJSON.name)
     })
 
     test('description should be the same as in package.json', () => {
         expect(metadata.description).toBe(packageJSON.description)
     })
-
-    // TODO: Add Version Check for package.json. Match with latest released tag.
 
     test('package.json main should point to the main entrypoint of the action', () => {
         expect(metadata.runs.main).toBe(packageJSON.main)
@@ -50,14 +48,14 @@ describe('Action Metadata', () => {
     })
 
     test('inputs used in the code should match those defined in action metadata file', () => {
-        const metadataInputs = Object.keys(metadata.inputs)
-        const codeInputs = Object.values(inputs)
+        const metadataInputs = Object.keys(metadata.inputs).sort()
+        const codeInputs = Object.values(inputs).sort()
         expect(metadataInputs).toStrictEqual(codeInputs)
     })
 
     test('outputs used in the code should match those defined in the action metadata file', () => {
-        const metadataOutputs = Object.keys(metadata.outputs)
-        const codeOutputs = Object.values(outputs)
+        const metadataOutputs = Object.keys(metadata.outputs).sort()
+        const codeOutputs = Object.values(outputs).sort()
         expect(metadataOutputs).toStrictEqual(codeOutputs)
     })
 
