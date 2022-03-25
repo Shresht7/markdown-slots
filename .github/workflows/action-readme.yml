@@ -18,6 +18,11 @@ on:
 
   # Manual workflow dispatch
   workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Dry-Run Switch
+        required: true
+        default: "false"
 
 # Jobs
 # ====
