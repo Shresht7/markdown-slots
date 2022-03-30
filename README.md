@@ -133,7 +133,7 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :------: |
 | `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |          |
 | `dest`         | Desired output path for the generated content                                | `./README.md` |          |
-| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |    ✅     |
+| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |     ✅    |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |          |
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |          |
 <!-- /slot -->
@@ -172,6 +172,8 @@ The _description_, _inputs_ and _outputs_ tables of this README are placed in sl
 # ACTION README
 # =============
 
+# Workflow to automatically update the README with action.yml metadata
+
 name: Action Readme
 
 # Activation Events
@@ -190,7 +192,7 @@ on:
   workflow_dispatch:
     inputs:
       dry-run:
-        description: Dry-Run Switch
+        description: Dry-Run
         required: true
         default: "false"
 
@@ -255,7 +257,7 @@ jobs:
             echo "::set-output name=changes_exist::true"
           fi
 
-      - name: push
+      - name: add, commit and push
         if: ${{ steps.git-diff.outputs.changes_exist == 'true' }}
         run: |
           git config user.name 'github-actions[bot]'
