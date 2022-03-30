@@ -2,6 +2,9 @@
 # VALIDATE
 # ========
 
+# Workflow to check if the action builds and runs. Also checks if the checked-in dist
+# matches what we expect it to be.
+
 name: Validate
 
 # Activation Events
@@ -28,7 +31,7 @@ jobs:
           npm install
           npm run build
 
-# Dist
+  # Dist
   # ----
 
   check-dist: # Check whether the checked-in dist actually matches what we expect it to be

@@ -2,6 +2,8 @@
 # ACTION README
 # =============
 
+# Workflow to automatically update the README with action.yml metadata
+
 name: Action Readme
 
 # Activation Events
@@ -20,7 +22,7 @@ on:
   workflow_dispatch:
     inputs:
       dry-run:
-        description: Dry-Run Switch
+        description: Dry-Run
         required: true
         default: "false"
 
@@ -85,7 +87,7 @@ jobs:
             echo "::set-output name=changes_exist::true"
           fi
 
-      - name: push
+      - name: add, commit and push
         if: ${{ steps.git-diff.outputs.changes_exist == 'true' }}
         run: |
           git config user.name 'github-actions[bot]'

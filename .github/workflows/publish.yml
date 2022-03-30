@@ -2,6 +2,8 @@
 # PUBLISH RELEASE
 # ===============
 
+# Workflow to build and tag releases using JasonEtco/build-and-tag-action@v2
+
 name: Publish
 
 # Activation Events
