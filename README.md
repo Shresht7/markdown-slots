@@ -1,10 +1,25 @@
 <h1 align='center'>Markdown Slots</h1>
 
+<div align='center'>
+
+[![Release](https://img.shields.io/github/v/release/Shresht7/markdown-slots?style=for-the-badge)](https://github.com/Shresht7/markdown-slots/releases)
+[![License](https://img.shields.io/github/license/Shresht7/markdown-slots?style=for-the-badge)](./LICENSE)
+
+</div>
+
 <p align='center'>
 <!-- slot: description  -->
 A GitHub Action to dynamically place content in markdown slots
 <!-- /slot -->
 </p>
+
+<div align='center'>
+
+[![Test](https://github.com/Shresht7/markdown-slots/actions/workflows/test.yml/badge.svg)](https://github.com/Shresht7/markdown-slots/actions/workflows/test.yml)
+[![Validate](https://github.com/Shresht7/markdown-slots/actions/workflows/validate.yml/badge.svg)](https://github.com/Shresht7/markdown-slots/actions/workflows/validate.yml)
+[![Action Readme](https://github.com/Shresht7/markdown-slots/actions/workflows/action-readme.yml/badge.svg)](https://github.com/Shresht7/markdown-slots/actions/workflows/action-readme.yml)
+
+</div>
 
 ---
 
@@ -118,7 +133,7 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :------: |
 | `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |          |
 | `dest`         | Desired output path for the generated content                                | `./README.md` |          |
-| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |     ✅    |
+| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |    ✅     |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |          |
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |          |
 <!-- /slot -->
