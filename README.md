@@ -21,6 +21,26 @@ A GitHub Action to dynamically place content in markdown slots
 
 </div>
 
+<details>
+
+<summary align='center'>Table of Contents</summary>
+
+- [📖 Usage](#-usage)
+  - [1. Create markdown slots](#1-create-markdown-slots)
+  - [2. Use action in a workflow](#2-use-action-in-a-workflow)
+  - [3. Run the workflow](#3-run-the-workflow)
+- [📋 Inputs](#-inputs)
+  - [Slots](#slots)
+    - [Slot Props](#slot-props)
+  - [List of all inputs:](#list-of-all-inputs)
+- [📋 Outputs](#-outputs)
+  - [List of all outputs:](#list-of-all-outputs)
+- [📃 Workflow Examples](#-workflow-examples)
+  - [Action Readme](#action-readme)
+- [📑 License](#-license)
+
+</details>
+
 ---
 
 ## 📖 Usage
