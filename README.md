@@ -160,6 +160,8 @@ e.g. `${{ steps.markdown-slots.outputs.contents }}`
 
 The _description_, _inputs_ and _outputs_ tables of this README are placed in slots using this action! See the [action-readme workflow](./.github/workflows/action-readme.yml) for more details.
 
+[![Action Readme](https://github.com/Shresht7/markdown-slots/actions/workflows/action-readme.yml/badge.svg)](https://github.com/Shresht7/markdown-slots/actions/workflows/action-readme.yml)
+
 <details>
 
   <summary>Click here to see the workflow</summary>
