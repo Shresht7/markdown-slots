@@ -8,7 +8,7 @@
 </div>
 
 <p align='center'>
-<!-- slot: description  -->
+<!-- slot: description -->
 A GitHub Action to dynamically place content in markdown slots
 <!-- /slot -->
 </p>
@@ -128,12 +128,12 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 
 ### List of all inputs:
 
-<!-- slot: inputs  -->
+<!-- slot: inputs -->
 | Input          | Description                                                                  |       Default | Required |
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :------: |
 | `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |          |
 | `dest`         | Desired output path for the generated content                                | `./README.md` |          |
-| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |    ✅     |
+| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |     ✅    |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |          |
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |          |
 <!-- /slot -->
@@ -148,7 +148,7 @@ e.g. `${{ steps.markdown-slots.outputs.contents }}`
 
 ### List of all outputs:
 
-<!-- slot: outputs  -->
+<!-- slot: outputs -->
 | Output     | Description                |
 | :--------- | :------------------------- |
 | `contents` | Generated markdown content |
@@ -166,7 +166,7 @@ The _description_, _inputs_ and _outputs_ tables of this README are placed in sl
 
   <br />
 
-  <!-- slot: action-readme-workflow  -->
+  <!-- slot: action-readme-workflow -->
 ```yaml
 # =============
 # ACTION README
