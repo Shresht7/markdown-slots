@@ -120,11 +120,11 @@ for example, to wrap some code in a code-block:
 Alternatively, slot props can also be specified on the slot-tag itself. These props take priority over the ones set in the workflow.
 
 ```md
-<!-- slot: code | prepend: ```js, append: ``` -->
+<!-- slot: code, prepend: ```js, append: ``` -->
 <!-- /slot -->
 ```
 
-> The slot props follow the `key: value` format and are separated by `,`. A `|` character separates the slot: name from the slot props.
+> The slot props follow the `key: value` format and are separated by `,`.
 
 ### List of all inputs:
 
@@ -133,7 +133,7 @@ Alternatively, slot props can also be specified on the slot-tag itself. These pr
 | :------------- | :--------------------------------------------------------------------------- | ------------: | :------: |
 | `src`          | Path to the source file with markdown-slots (can be a URL)                   | `./README.md` |          |
 | `dest`         | Desired output path for the generated content                                | `./README.md` |          |
-| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |     ✅    |
+| `slots`        | stringified YAML array mapping slot-names to content                         |   `undefined` |    ✅     |
 | `remove-slots` | Boolean to determine if this action should remove slot tags upon replacement |       `false` |          |
 | `dry-run`      | Boolean to determine if this is a dry-run                                    |       `false` |          |
 <!-- /slot -->
