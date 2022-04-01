@@ -5847,8 +5847,8 @@ function createSlotRegex(slot) {
         '\\s*',
         slot,
         '\\s*',
-        '\\|?',
-        '(.*?)',
+        ',?',
+        '([\\s\\S.]*?)',
         '\\s*',
         '-->',
         '\\s*',
@@ -5874,6 +5874,7 @@ exports.createSlotRegex = createSlotRegex;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getProps = void 0;
+const DELIMITER = ',';
 /**
  * Regex to match props
  *
@@ -5887,7 +5888,7 @@ function getProps(str) {
     //  Initialize default props object
     const props = { str };
     //  Iterate over the props and extract key-value pairs
-    for (const prop of str.split(',')) { //  Split str on ,
+    for (const prop of str.split(DELIMITER)) { //  Split str on ,
         //  Extract key and value
         const match = prop.match(propsRegex) || [];
         const key = match === null || match === void 0 ? void 0 : match[1];
@@ -5978,15 +5979,20 @@ exports.placeSlotContent = void 0;
 function placeSlotContent(slot, content, props) {
     const contents = [content];
     //  Attach prepend and append
-    if (props.prepend) {
+    if (props === null || props === void 0 ? void 0 : props.prepend) {
         contents.unshift(`${props.prepend}`);
     }
-    if (props.append) {
+    if (props === null || props === void 0 ? void 0 : props.append) {
         contents.push(`${props.append}`);
     }
     //  If removeSlots is false, keep the slot tags
-    if (!props.removeSlots) {
-        contents.unshift(`<!-- slot: ${slot} ${props.str} -->`);
+    if (!(props === null || props === void 0 ? void 0 : props.removeSlots)) {
+        if (props === null || props === void 0 ? void 0 : props.str) {
+            contents.unshift(`<!-- slot: ${slot}, ${props.str} -->`);
+        }
+        else {
+            contents.unshift(`<!-- slot: ${slot} -->`);
+        }
         contents.push(`<!-- /slot -->`);
     }
     return contents.join('\n');

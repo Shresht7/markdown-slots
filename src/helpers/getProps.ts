@@ -1,6 +1,8 @@
 //  Type Definitions
 import type { Props } from '../types'
 
+const DELIMITER = ','
+
 /**
  * Regex to match props
  * 
@@ -17,7 +19,7 @@ export function getProps(str: string): Props {
     const props: Props = { str }
 
     //  Iterate over the props and extract key-value pairs
-    for (const prop of str.split(',')) {   //  Split str on ,
+    for (const prop of str.split(DELIMITER)) {   //  Split str on ,
 
         //  Extract key and value
         const match = prop.match(propsRegex) || []

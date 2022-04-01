@@ -1,14 +1,13 @@
 //  Library
 import { placeSlotContent } from '../../src/helpers/placeSlotContent'
 
-// TODO: Add Tests for Place Slot Contents
 describe('Place Slot Contents', () => {
 
     it('should place content in markdown-slots', () => {
         const content = 'Hello World!'
         const result = placeSlotContent('test', content)
         expect(result).toBe([
-            '<!-- slot: test  -->',
+            '<!-- slot: test -->',
             'Hello World!',
             '<!-- /slot -->'
         ].join('\n'))
@@ -18,7 +17,7 @@ describe('Place Slot Contents', () => {
         const code = 'console.log(x)'
         const result = placeSlotContent('test', code, { str: 'prepend: ```js', prepend: '```js' })
         expect(result).toBe([
-            '<!-- slot: test | prepend: ```js -->',
+            '<!-- slot: test, prepend: ```js -->',
             '```js',
             'console.log(x)',
             '<!-- /slot -->'
@@ -29,11 +28,17 @@ describe('Place Slot Contents', () => {
         const code = 'console.log(x)'
         const result = placeSlotContent('test', code, { str: 'append: ```', append: '```' })
         expect(result).toBe([
-            '<!-- slot: test | append: ``` -->',
+            '<!-- slot: test, append: ``` -->',
             'console.log(x)',
             '```',
             '<!-- /slot -->'
         ].join('\n'))
+    })
+
+    it('should remove slot tags if that option is true', () => {
+        const str = 'Hello World!'
+        const result = placeSlotContent('test', str, { removeSlots: true })
+        expect(result).toBe('Hello World!')
     })
 
 })
