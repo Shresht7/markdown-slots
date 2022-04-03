@@ -214,7 +214,7 @@ on:
   workflow_dispatch:
     inputs:
       dry-run:
-        description: Dry-Run
+        description: dry-run
         required: true
         default: "false"
 
